@@ -1,10 +1,10 @@
 {
 "manifest_version": 2,
-    "name": "Highlighter",
+    "name": "Eastern Scheduler",
     "description": "Extension for highlighting words",
     "version": "1.0",
-    "permissions": [
-        "tabs", "http://*/*", "https://*/*"
+     "permissions": [
+        "tabs", "http://*/*", "https://*/*", "file://*/*"
     ],
     "browser_action": {
       "default_title": "Enter a search term",
