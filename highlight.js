@@ -39,12 +39,18 @@ var html = document.getElementsByTagName('table');
 // modify the below to only print out the information for matching
 // courses
 
+//var commaCheck = (qry.length - qry.replace(/,/g, "").length);
 
+//var courseSet = [];
 
 var inputCourse = qry.split(", ");
+/*for (var i=0; i < commaCheck; i++){
+	var courseSet[i] = inputCourse[i];*/
 var x = inputCourse[0];
 var y = inputCourse[1];
 var z = inputCourse[2];
+
+//var classCourse = [];
 
 var xClassCourse = x.split(" ");
 var xSubj = xClassCourse[0];
