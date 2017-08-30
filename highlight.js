@@ -41,9 +41,22 @@ var html = document.getElementsByTagName('table');
 
 
 
-var inputCourse = qry.split(" ");
+var inputCourse = qry.split(", ");
 var x = inputCourse[0];
 var y = inputCourse[1];
+var z = inputCourse[2];
+
+var xClassCourse = x.split(" ");
+var xSubj = xClassCourse[0];
+var xCrse = xClassCourse[1];
+
+var yClassCourse = y.split(" ");
+var ySubj = yClassCourse[0];
+var yCrse = yClassCourse[1];
+
+var zClassCourse = z.split(" ");
+var zSubj = zClassCourse[0];
+var zCrse = zClassCourse[1];
 
 console.log("x = " + x);
 console.log("y = " + y);
@@ -58,7 +71,7 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 
   for (var i = 3; i < rows.length; i++) {
 	
-	if (rows[i].cells[3].innerText == x && rows[i].cells[4].innerText == y) {
+	if (rows[i].cells[3].innerText == xSubj && rows[i].cells[4].innerText == xCrse) {
 		var subj = rows[i].cells[3].innerText;
 		var crse = rows[i].cells[4].innerText;
 		var dys = rows[i].cells[10].innerText;
@@ -74,7 +87,47 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 			
 	} // end if statement
   
-  } // end inner for loop
+  } // end inner x for loop
+	
+	for (var i = 3; i < rows.length; i++) {
+	
+	if (rows[i].cells[3].innerText == ySubj && rows[i].cells[4].innerText == yCrse) {
+		var subj = rows[i].cells[3].innerText;
+		var crse = rows[i].cells[4].innerText;
+		var dys = rows[i].cells[10].innerText;
+		var tme = rows[i].cells[11].innerText;
+		// do something similar to pull out the days/times
+
+		//console.log("Course: " + subj + "-" + crse + "  Days: " + dys + "  Time: " + tme);
+		
+		var course1 = new Course(subj, crse, dys.split(""), 
+		       {"start": [tme], "end": [tme]} );
+		COURSES[COURSE_NUM] = course1;
+		COURSE_NUM++;
+			
+	} // end if statement
+  
+  } //end inner y for loop
+	
+	for (var i = 3; i < rows.length; i++) {
+	
+	if (rows[i].cells[3].innerText == zSubj && rows[i].cells[4].innerText == zCrse) {
+		var subj = rows[i].cells[3].innerText;
+		var crse = rows[i].cells[4].innerText;
+		var dys = rows[i].cells[10].innerText;
+		var tme = rows[i].cells[11].innerText;
+		// do something similar to pull out the days/times
+
+		//console.log("Course: " + subj + "-" + crse + "  Days: " + dys + "  Time: " + tme);
+		
+		var course1 = new Course(subj, crse, dys.split(""), 
+		       {"start": [tme], "end": [tme]} );
+		COURSES[COURSE_NUM] = course1;
+		COURSE_NUM++;
+			
+	} // end if statement
+  
+  } //end inner z for loop
 
 } // end  outer for loop
 
