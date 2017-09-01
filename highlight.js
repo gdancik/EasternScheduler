@@ -41,7 +41,9 @@ var html = document.getElementsByTagName('table');
 
 var commaCheck = ((qry.length - qry.replace(/,/g, "").length)+1);
 
-//checks the amount of commas and adds one to represent the amount of courses
+/*
+checks the amount of commas and adds one to represent the amount of courses if you would like
+a variable amount of course inputs*/
 
 var courseSet = [];
 
@@ -51,7 +53,10 @@ for (var i=0; i < commaCheck; i++){
 	var courseSet[i] = inputCourse[i];
 }
 
-/*var x = inputCourse[0];
+/*
+This is if you have a set number of inputs you would like
+
+var x = inputCourse[0];
 var y = inputCourse[1];
 var z = inputCourse[2];*/
 
@@ -63,7 +68,8 @@ for (var i = 1; i <commaCheck; i++){
 	classCourse[i][1] = classSet[1];
 }
 	
-/*var xClassCourse = x.split(" ");
+/*
+var xClassCourse = x.split(" ");
 var xSubj = xClassCourse[0];
 var xCrse = xClassCourse[1];
 
