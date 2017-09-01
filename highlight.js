@@ -8,14 +8,14 @@ Course = class {
         this.days = days;
         this.times = times;
     }
-    print() {
+    print(var i) {
 
         // get unique starting and ending times
         var starts = Array.from(new Set(this.times['start']));
         var ends = Array.from(new Set(this.times['end']));
         if (starts.length == 1 && ends.length == 1) {
             console.log(this.Subj + "-" + this.Crse + ", " + this.days.join("") + " " + 
-                    starts[0] + "-" + ends[0]);
+                    classTimes[i][0] + "-" + classTimes[i][1]);
         } else {
             console.log(this.Subj + "-" + this.Crse + ", days/times vary");
         }
@@ -128,7 +128,7 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 
 console.log("COURSES FOUND: " + COURSE_NUM);
 for (var i = 0; i < COURSE_NUM; i++) {
-	COURSES[i].print();
+	COURSES[i].print(i);
 }
 
 /*
