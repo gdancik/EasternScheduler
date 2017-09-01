@@ -29,7 +29,7 @@ if (typeof(qry) == "undefined") {
     qry = "Connecticut";
 }
 
-//alert(" highlight.js with qry = " + qry);
+alert(" highlight.js with qry = " + qry);
 console.log("highlighter is running with qry = " + qry + "...");
 
 // get all HTML from the body
@@ -61,6 +61,8 @@ var y = inputCourse[1];
 var z = inputCourse[2];*/
 
 var classCourse = [][2];
+
+var classTimes[][2];
 
 for (var i = 1; i <commaCheck; i++){
 	var classSet = courseSet[i].split(" ");
@@ -96,7 +98,7 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 	  
 	for(var i = 0; i < commaCheck; i++){
 	    
-	if (rows[i].cells[3].innerText == classCourse[i][0] && rows[i].cells[4].innerText == classCourse[i][1]) {
+		if (rows[i].cells[3].innerText == classCourse[i][0] && rows[i].cells[4].innerText == classCourse[i][1]) {
 		var subj = rows[i].cells[3].innerText;
 		var crse = rows[i].cells[4].innerText;
 		var dys = rows[i].cells[10].innerText;
@@ -105,8 +107,13 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 
 		//console.log("Course: " + subj + "-" + crse + "  Days: " + dys + "  Time: " + tme);
 		
+		var timeTable = tme.split("-");
+			classTimes[i][0] = timeTable[0];
+			classTimes[i][1] = timeTable[1];
+			
 		var course1 = new Course(subj, crse, dys.split(""), 
-		       {"start": [tme], "end": [tme]} );
+		       {"start": classTimes[i][0], "end": classTimes[i][1]} );
+		
 		COURSES[COURSE_NUM] = course1;
 		COURSE_NUM++;
 			
