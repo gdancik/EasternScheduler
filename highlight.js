@@ -39,20 +39,31 @@ var html = document.getElementsByTagName('table');
 // modify the below to only print out the information for matching
 // courses
 
-//var commaCheck = (qry.length - qry.replace(/,/g, "").length);
+var commaCheck = ((qry.length - qry.replace(/,/g, "").length)+1);
 
-//var courseSet = [];
+//checks the amount of commas and adds one to represent the amount of courses
+
+var courseSet = [];
 
 var inputCourse = qry.split(", ");
-/*for (var i=0; i < commaCheck; i++){
-	var courseSet[i] = inputCourse[i];*/
-var x = inputCourse[0];
+
+for (var i=0; i < commaCheck; i++){
+	var courseSet[i] = inputCourse[i];
+}
+
+/*var x = inputCourse[0];
 var y = inputCourse[1];
-var z = inputCourse[2];
+var z = inputCourse[2];*/
 
-//var classCourse = [];
+var classCourse = [][2];
 
-var xClassCourse = x.split(" ");
+for (var i = 1; i <commaCheck; i++){
+	var classSet = courseSet[i].split(" ");
+	classCourse[i][0] = classSet[0];
+	classCourse[i][1] = classSet[1];
+}
+	
+/*var xClassCourse = x.split(" ");
 var xSubj = xClassCourse[0];
 var xCrse = xClassCourse[1];
 
@@ -62,7 +73,7 @@ var yCrse = yClassCourse[1];
 
 var zClassCourse = z.split(" ");
 var zSubj = zClassCourse[0];
-var zCrse = zClassCourse[1];
+var zCrse = zClassCourse[1];*/
 
 console.log("x = " + x);
 console.log("y = " + y);
@@ -76,8 +87,10 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
   var rows = table.rows;
 
   for (var i = 3; i < rows.length; i++) {
-	
-	if (rows[i].cells[3].innerText == xSubj && rows[i].cells[4].innerText == xCrse) {
+	  
+	for(var i = 0; i < commaCheck; i++){
+	    
+	if (rows[i].cells[3].innerText == classCourse[i][0] && rows[i].cells[4].innerText == classCourse[i][1]) {
 		var subj = rows[i].cells[3].innerText;
 		var crse = rows[i].cells[4].innerText;
 		var dys = rows[i].cells[10].innerText;
@@ -91,50 +104,12 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 		COURSES[COURSE_NUM] = course1;
 		COURSE_NUM++;
 			
-	} // end if statement
-  
-  } // end inner x for loop
-	
-	for (var i = 3; i < rows.length; i++) {
-	
-	if (rows[i].cells[3].innerText == ySubj && rows[i].cells[4].innerText == yCrse) {
-		var subj = rows[i].cells[3].innerText;
-		var crse = rows[i].cells[4].innerText;
-		var dys = rows[i].cells[10].innerText;
-		var tme = rows[i].cells[11].innerText;
-		// do something similar to pull out the days/times
-
-		//console.log("Course: " + subj + "-" + crse + "  Days: " + dys + "  Time: " + tme);
+		} // end if statement
 		
-		var course1 = new Course(subj, crse, dys.split(""), 
-		       {"start": [tme], "end": [tme]} );
-		COURSES[COURSE_NUM] = course1;
-		COURSE_NUM++;
-			
-	} // end if statement
-  
-  } //end inner y for loop
+	} //end inner inner for loop
+	  
+  } // end inner for loop
 	
-	for (var i = 3; i < rows.length; i++) {
-	
-	if (rows[i].cells[3].innerText == zSubj && rows[i].cells[4].innerText == zCrse) {
-		var subj = rows[i].cells[3].innerText;
-		var crse = rows[i].cells[4].innerText;
-		var dys = rows[i].cells[10].innerText;
-		var tme = rows[i].cells[11].innerText;
-		// do something similar to pull out the days/times
-
-		//console.log("Course: " + subj + "-" + crse + "  Days: " + dys + "  Time: " + tme);
-		
-		var course1 = new Course(subj, crse, dys.split(""), 
-		       {"start": [tme], "end": [tme]} );
-		COURSES[COURSE_NUM] = course1;
-		COURSE_NUM++;
-			
-	} // end if statement
-  
-  } //end inner z for loop
-
 } // end  outer for loop
 
 
