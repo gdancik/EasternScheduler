@@ -113,6 +113,7 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 		if ((end.length - end.replace(/p/g, "").length)>0){
 			endHour = Number(endHour) + 12;
 		}
+		
 		var minSplit = startMin.split(" ");
 		startMin = minSplit[0];
 		minSplit = endMin.split(" ");
@@ -168,14 +169,15 @@ for (var i = 0; i < COURSE_NUM; i++) {
 	
 	newWindow.document.write("<tr>");
 	
-		for (var j = 0; j < courseTable; j++) {
-		
-/*	if (i % 2 == 0){
+	/*	if (i % 2 == 0){
 		newWindow.document.write("<tr id=\"evenRow\"");
 	}
 	else {
 		newWindow.document.write("<tr id=\"oddRow\"");
 	}*/
+	
+		for (var j = 0; j < courseTable; j++) {
+		
 	//This will alternate the color of the table rows for easier readability
 		newWindow.document.write("<th id = tableSlot></th>");
 		newWindow.document.getElementById('tableSlot').innerHTML = COURSES[i][j];
