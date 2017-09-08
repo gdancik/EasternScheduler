@@ -175,12 +175,10 @@ for (var i = 0; i < COURSE_NUM; i++) {
 	else {
 		newWindow.document.write("<tr id=\"oddRow\"");
 	}*/
-	
-		for (var j = 0; j < courseTable; j++) {
-		
 	//This will alternate the color of the table rows for easier readability
-		newWindow.document.write("<th id = tableSlot></th>");
-		newWindow.document.getElementById('tableSlot').innerHTML = COURSES[i][j];
+		for (var j = 0; j < courseTable; j++) {
+	
+		newWindow.document.write("<th>"+COURSES[i][j]+"</th>");
 		}
 		newWindow.document.write("</tr>");
 	}
