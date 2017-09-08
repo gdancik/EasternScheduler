@@ -57,12 +57,6 @@ for (var i=0; i < commaCheck; i++){
 	courseSet[i] = inputCourse[i];
 }
 
-/*
-This is if you have a set number of inputs you would like
-
-var x = inputCourse[0];
-var y = inputCourse[1];
-var z = inputCourse[2];*/
 
 var classCourse = [];
 
@@ -75,22 +69,10 @@ for (var i = 0; i <commaCheck; i++){
 	classCourse[i][0] = classSet[0];
 	classCourse[i][1] = classSet[1];
 }
-	
-/*
-var xClassCourse = x.split(" ");
-var xSubj = xClassCourse[0];
-var xCrse = xClassCourse[1];
-
-var yClassCourse = y.split(" ");
-var ySubj = yClassCourse[0];
-var yCrse = yClassCourse[1];
-
-var zClassCourse = z.split(" ");
-var zSubj = zClassCourse[0];
-var zCrse = zClassCourse[1];*/
 
 var COURSES = [];
 var COURSE_NUM = 0;
+var courseTable = 5;
 
 // start at 4th table (index 3) stop at 2nd to last table
 for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
@@ -144,7 +126,7 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 		
 		end = endHour + endMin;
 		
-		COURSES[j] = new Array(5);
+		COURSES[j] = new Array(courseTable);
 		
 		COURSES[j][0] = subj;
 		COURSES[j][1] = crse;
@@ -183,18 +165,23 @@ newWindow.document.write("<th>Start Times</th>");
 newWindow.document.write("<th>End Times</th>");
 newWindow.document.write("</tr>");
 for (var i = 0; i < COURSE_NUM; i++) {
-		for (var j = 0; j<5; j++){
-			newWindow.document.write("<tr>");
+	
+	newWindow.document.write("<tr>");
+	
+		for (var j = 0; j < courseTable; j++) {
+		
 /*	if (i % 2 == 0){
 		newWindow.document.write("<tr id=\"evenRow\"");
 	}
 	else {
 		newWindow.document.write("<tr id=\"oddRow\"");
 	}*/
-	newWindow.document.write("<th>COURSES[i][j]</th>");
-	newWindow.document.write("</tr>";
+	//This will alternate the color of the table rows for easier readability
+		newWindow.document.write("<th id = tableSlot></th>");
+		newWindow.document.getElementById('tableSlot').innerHTML = COURSES[i][j];
+		}
+		newWindow.document.write("</tr>");
 	}
-}
 newWindow.document.write("</table>");
 
 
