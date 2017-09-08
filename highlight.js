@@ -125,7 +125,11 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 		
 		start = startHour + startMin;
 		
+		start = start.toFixed(2);
+		
 		end = endHour + endMin;
+		
+		end = end.toFixed(2);
 		
 		COURSES[j] = new Array(courseTable);
 		
