@@ -1,7 +1,7 @@
 // This script highlights all occurences of 'qry'. The variable 'qry' should
 // be set before calling this script
 
-// alert("in highlight.js");
+alert("in highlight.js");
 
 Course = class {
     constructor(Subj, Crse, days, times) {
@@ -20,9 +20,9 @@ Course = class {
         } else {
             console.log(this.Subj + "-" + this.Crse + ", days/times vary");
         }
-        console.log();
-    }
-};
+        
+	}
+}
 
 
 if (typeof(qry) == "undefined") {
@@ -111,13 +111,55 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 
 		//console.log("Course: " + subj + "-" + crse + "  Days: " + dys + "  Time: " + tme);
 		
-
-		var timeTable = tme.split("-");
-			
-		var course1 = new Course(subj, crse, dys.split(""), 
-		       {"start": timeTable[0], "end": timeTable[1]} );
+		//This will split the time and convert it into military and decimal
+		//i.e. it will turn 4:30 PM into 16.5.
 		
-		COURSES[COURSE_NUM] = course1;
+		var timeTable = tme.split("-");
+		var start = timeTable[0];
+		var end = timeTable[1];
+		var startTable = start.split(":");
+		var startHour = startTable[0];
+		var startMin = startTable[1];
+		var endTable = end.split(":");
+		var endHour = endTable[0];
+		var endMin = endTable[1];
+		
+		if ((start.length - start.replace(/p/g, "").length)>0){
+			startHour = Number(startHour) + 12;
+		}
+			
+		if ((end.length - end.replace(/p/g, "").length)>0){
+			endHour = Number(endHour) + 12;
+		}
+		var minSplit = startMin.split(" ");
+		startMin = minSplit[0];
+		minSplit = endMin.split(" ");
+		endMin = minSplit[0];
+		
+		startMin = startMin/60;
+		
+		endMin = endMin/60;
+		
+		start = startHour + startMin;
+		
+		end = endHour + endMin;
+		
+		COURSES[j] = new Array(5);
+		
+		COURSES[j][0] = subj;
+		COURSES[j][1] = crse;
+		COURSES[j][2] = dys;
+		COURSES[j][3] = start;
+		COURSES[j][4] = end;
+		
+		alert(COURSES[j][1]);
+		
+		alert("start: " + start + " end: " + end);
+		//var courseSet = [subj, crse, dys, start, end];
+		/*var course1 = new Course(subj, crse, dys.split(""),
+               {"start": start, "end": end} );*/
+		
+		//COURSES[COURSE_NUM] = courseSet;
 		COURSE_NUM++;
 			
 		} // end if statement
@@ -130,24 +172,30 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 
 
 console.log("COURSES FOUND: " + COURSE_NUM);
-for (var i = 0; i < COURSE_NUM; i++) {
-	COURSES[i].print(i);
-}
-
 
 var newWindow = window.open("", null);
-newWindow.document.write("<h1> This is a new page </h1>");
-newWindow.document.write("<p style=\"color:red\"> This is a new page </p>");
-newWindow.document.write("<p> This is a new page </p>");
-
-function writeParagraph(w, txt) {
-	var s = "<p>" + txt + "</p>";
-	w.document.write(s);
+newWindow.document.write("<table>");
+//newWindow.document.write("<tr id=\"oddRow\"">);
+newWindow.document.write("<th>Subj</th>");
+newWindow.document.write("<th>Crse</th>");
+newWindow.document.write("<th>Days</th>");
+newWindow.document.write("<th>Start Times</th>");
+newWindow.document.write("<th>End Times</th>");
+newWindow.document.write("</tr>");
+for (var i = 0; i < COURSE_NUM; i++) {
+		for (var j = 0; j<5; j++){
+			newWindow.document.write("<tr>");
+/*	if (i % 2 == 0){
+		newWindow.document.write("<tr id=\"evenRow\"");
+	}
+	else {
+		newWindow.document.write("<tr id=\"oddRow\"");
+	}*/
+	newWindow.document.write("<th>COURSES[i][j]</th>");
+	newWindow.document.write("</tr>";
+	}
 }
-
-writeParagraph(newWindow, "This is a test");
-writeParagraph(newWindow, "This is not a test");
-
+newWindow.document.write("</table>");
 
 
 
