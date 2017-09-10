@@ -49,9 +49,18 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 		    var timeTable = tme.split("-");
 		    var start = convertTime(timeTable[0]);
 		    var end = convertTime(timeTable[1]);
-      
+            
+            // we need arrays days, start, and end times
             days = dys.split("");
-            tme = {"start": [start], "end": [end]};
+
+            startArray = new Array(days.length);
+            startArray.fill(start);
+
+            endArray = new Array(days.length);
+            endArray.fill(end);
+
+      
+            tme = {"start": [startArray], "end": [endArray]};
 
 		    COURSES[COURSE_NUM] = new Course(subj, crse, days, tme) 
 		    COURSE_NUM++;
