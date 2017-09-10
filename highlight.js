@@ -1,7 +1,7 @@
 // This script highlights all occurences of 'qry'. The variable 'qry' should
 // be set before calling this script
 
-// alert("in highlight.js");
+alert("in highlight.js");
 
 Course = class {
     constructor(Subj, Crse, days, times) {
@@ -20,9 +20,9 @@ Course = class {
         } else {
             console.log(this.Subj + "-" + this.Crse + ", days/times vary");
         }
-        console.log();
-    }
-};
+        
+	}
+}
 
 
 if (typeof(qry) == "undefined") {
@@ -57,12 +57,6 @@ for (var i=0; i < commaCheck; i++){
 	courseSet[i] = inputCourse[i];
 }
 
-/*
-This is if you have a set number of inputs you would like
-
-var x = inputCourse[0];
-var y = inputCourse[1];
-var z = inputCourse[2];*/
 
 var classCourse = [];
 
@@ -75,22 +69,10 @@ for (var i = 0; i <commaCheck; i++){
 	classCourse[i][0] = classSet[0];
 	classCourse[i][1] = classSet[1];
 }
-	
-/*
-var xClassCourse = x.split(" ");
-var xSubj = xClassCourse[0];
-var xCrse = xClassCourse[1];
-
-var yClassCourse = y.split(" ");
-var ySubj = yClassCourse[0];
-var yCrse = yClassCourse[1];
-
-var zClassCourse = z.split(" ");
-var zSubj = zClassCourse[0];
-var zCrse = zClassCourse[1];*/
 
 var COURSES = [];
 var COURSE_NUM = 0;
+var courseTable = 5;
 
 // start at 4th table (index 3) stop at 2nd to last table
 for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
@@ -111,13 +93,60 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 
 		//console.log("Course: " + subj + "-" + crse + "  Days: " + dys + "  Time: " + tme);
 		
-
-		var timeTable = tme.split("-");
-			
-		var course1 = new Course(subj, crse, dys.split(""), 
-		       {"start": timeTable[0], "end": timeTable[1]} );
+		//This will split the time and convert it into military and decimal
+		//i.e. it will turn 4:30 PM into 16.5.
 		
-		COURSES[COURSE_NUM] = course1;
+		var timeTable = tme.split("-");
+		var start = timeTable[0];
+		var end = timeTable[1];
+		var startTable = start.split(":");
+		var startHour = startTable[0];
+		var startMin = startTable[1];
+		var endTable = end.split(":");
+		var endHour = endTable[0];
+		var endMin = endTable[1];
+		
+		if ((start.length - start.replace(/p/g, "").length)>0){
+			startHour = Number(startHour) + 12;
+		}
+			
+		if ((end.length - end.replace(/p/g, "").length)>0){
+			endHour = Number(endHour) + 12;
+		}
+		
+		var minSplit = startMin.split(" ");
+		startMin = minSplit[0];
+		minSplit = endMin.split(" ");
+		endMin = minSplit[0];
+		
+		startMin = startMin/60;
+		
+		endMin = endMin/60;
+		
+		start = startHour + startMin;
+		
+		start = start.toFixed(2);
+		
+		end = endHour + endMin;
+		
+		end = end.toFixed(2);
+		
+		COURSES[j] = new Array(courseTable);
+		
+		COURSES[j][0] = subj;
+		COURSES[j][1] = crse;
+		COURSES[j][2] = dys;
+		COURSES[j][3] = start;
+		COURSES[j][4] = end;
+		
+		alert(COURSES[j][1]);
+		
+		alert("start: " + start + " end: " + end);
+		//var courseSet = [subj, crse, dys, start, end];
+		/*var course1 = new Course(subj, crse, dys.split(""),
+               {"start": start, "end": end} );*/
+		
+		//COURSES[COURSE_NUM] = courseSet;
 		COURSE_NUM++;
 			
 		} // end if statement
@@ -130,24 +159,34 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 
 
 console.log("COURSES FOUND: " + COURSE_NUM);
-for (var i = 0; i < COURSE_NUM; i++) {
-	COURSES[i].print(i);
-}
-
 
 var newWindow = window.open("", null);
-newWindow.document.write("<h1> This is a new page </h1>");
-newWindow.document.write("<p style=\"color:red\"> This is a new page </p>");
-newWindow.document.write("<p> This is a new page </p>");
-
-function writeParagraph(w, txt) {
-	var s = "<p>" + txt + "</p>";
-	w.document.write(s);
-}
-
-writeParagraph(newWindow, "This is a test");
-writeParagraph(newWindow, "This is not a test");
-
+newWindow.document.write("<table>");
+//newWindow.document.write("<tr id=\"oddRow\"">);
+newWindow.document.write("<th>Subj</th>");
+newWindow.document.write("<th>Crse</th>");
+newWindow.document.write("<th>Days</th>");
+newWindow.document.write("<th>Start Times</th>");
+newWindow.document.write("<th>End Times</th>");
+newWindow.document.write("</tr>");
+for (var i = 0; i < COURSE_NUM; i++) {
+	
+	newWindow.document.write("<tr>");
+	
+	/*	if (i % 2 == 0){
+		newWindow.document.write("<tr id=\"evenRow\"");
+	}
+	else {
+		newWindow.document.write("<tr id=\"oddRow\"");
+	}*/
+	//This will alternate the color of the table rows for easier readability
+		for (var j = 0; j < courseTable; j++) {
+	
+		newWindow.document.write("<th>"+COURSES[i][j]+"</th>");
+		}
+		newWindow.document.write("</tr>");
+	}
+newWindow.document.write("</table>");
 
 
 

@@ -3,6 +3,27 @@
   <head>
     <title>Enter search terms</title>
     <script src="popup.js"></script>
+	<link rel="stylesheet" href="SchedulerCSS.css">
+	<style>
+	table, th, td {
+    border: 1px solid white;
+	border-collapse:collapse;
+	}
+	th, td {
+    padding: 5px;
+    text-align: left;    
+	}
+	th {
+    text-align: center;
+	}
+	tr#oddRow {
+    background-color: #E3E5EE;
+	font-family: Veranda;
+	}
+	tr#evenRow {
+	font-family: Veranda;
+	}
+	</style>
   </head>
 
   <body>
@@ -10,6 +31,7 @@
        Enter your courses: <input type="text" style="width: 100%" id="searchString" placeholder=
 					"Write the courses in the format 'Subj(SPACE)Crse,(SPACE)' and repeat">
       <nbsp;>
+	 
       <button id="btnHighlight">Find classes!</button>
       <p></p>
 
