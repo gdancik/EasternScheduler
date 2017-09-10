@@ -2,33 +2,6 @@
 
 
 /************************************************************
- * Course object used to store course information
- * c1 = new Course("CSC", "210", ["M","W","F"], 
- *          {"start": [9,9,9], "end:[9.83, 9.83, 9.83]})
- ************************************************************/
-Course = class {
-    constructor(Subj, Crse, days, times) {
-        this.Subj = Subj;
-		this.Crse = Crse;
-        this.days = days;
-        this.times = times;
-    }
-    print() {
-		 // get unique starting and ending times
-        var starts = Array.from(new Set(this.times['start']));
-        var ends = Array.from(new Set(this.times['end']));
-        if (starts.length == 1 && ends.length == 1) {
-            console.log(this.Subj + "-" + this.Crse + ", " + this.days.join("") + " " + 
-                    starts[0] + "-" + ends[0]);
-        } else {
-            console.log(this.Subj + "-" + this.Crse + ", days/times vary");
-        }
-        
-	}
-}
-
-
-/************************************************************
  * convertTime: converts time 'x' of form 'hh:mm am/pm' into 
  * military/decimal form, ex: 2:15 pm --> 14.25
  ***********************************************************/
@@ -52,4 +25,78 @@ function convertTime(x) {
 	min = min/60;
     return hour + min;
 }
+
+
+
+/************************************************************
+ * Course object used to store course information
+ * c1 = new Course("CSC", "210", "MWF", "09:00 am-09:50 pm") 
+ *
+ * TO DO: add CRN; write function to add another day/times 
+ *        to current Course object; modify print() accordingly
+ ************************************************************/
+Course = class {
+    constructor(Subj, Crse, strDays, strTimes) {
+        this.Subj = Subj;
+		this.Crse = Crse;
+        this.strDays = strDays;
+        this.strTimes = strTimes;
+
+        // get day, startTime and endTime arrays
+        
+        // dayStr is of form MWF
+        this.days = strDays.split("");   
+            
+        // get start and end times from strTimes in format
+        // 09:00 am - 09:50 am
+		var timeTable = strTimes.split("-");
+		var start = convertTime(timeTable[0]);
+		var end = convertTime(timeTable[1]);
+
+        var startArray = new Array(this.days.length);
+        startArray.fill(start);
+
+        var endArray = new Array(this.days.length);
+        endArray.fill(end);
+            
+        this.startTimes = startArray;
+        this.endTimes = endArray; 
+
+    }
+    print() {
+            console.log(this.Subj + "-" + this.Crse + this.strDays + "," + this.strTimes);
+        
+	}
+}
+
+
+function inRange(x,a,b) {
+    return (a <= x && x <= b);
+}
+
+function hasConflict(c1,c2) {
+    for (var i = 0; i < c1.days.length; i++) {
+        for (var j = 0; j < c2.days.length; j++) {
+            if (c1.days[i] == c2.days[j]) {
+                start1 = c1.startTimes[i];
+                end1 = c1.endTimes[i];
+                start2 = c2.startTimes[j];
+                end2 = c2.endTimes[j];
+                
+                if (inRange(start1, start2, end2)) {
+                    return true;
+                } else if (inRange(end1, start2, end2)) {
+                    return true;
+                } else if (inRange(start2, start1, end1)) {
+                    return true;
+                } else if (inRange(end2, start1, end1)) {
+                    return true;
+                }
+
+            }
+        }
+    }
+    return false; 
+}
+
 

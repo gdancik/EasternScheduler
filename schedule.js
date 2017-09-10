@@ -1,6 +1,8 @@
 // This script highlights all occurences of 'qry'. The variable 'qry' should
 // be set before calling this script
 
+// TO DO: extract CRN add to Course object; modify code to work 
+// for courses offered multiple times over different days
 
 alert("in schedule.js");
 
@@ -44,25 +46,8 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 	    	var crse = rows[i].cells[4].innerText;
     		var dys = rows[i].cells[10].innerText;
     		var tme = rows[i].cells[11].innerText;
-            
-            // get start and end times
-		    var timeTable = tme.split("-");
-		    var start = convertTime(timeTable[0]);
-		    var end = convertTime(timeTable[1]);
-            
-            // we need arrays days, start, and end times
-            days = dys.split("");
 
-            startArray = new Array(days.length);
-            startArray.fill(start);
-
-            endArray = new Array(days.length);
-            endArray.fill(end);
-
-      
-            tme = {"start": [startArray], "end": [endArray]};
-
-		    COURSES[COURSE_NUM] = new Course(subj, crse, days, tme) 
+		    COURSES[COURSE_NUM] = new Course(subj, crse, dys, tme) 
 		    COURSE_NUM++;
 			
 		} // end if statement
@@ -90,8 +75,7 @@ newWindow.document.write("<table>");
 newWindow.document.write("<th>Subj</th>");
 newWindow.document.write("<th>Crse</th>");
 newWindow.document.write("<th>Days</th>");
-newWindow.document.write("<th>Start Times</th>");
-newWindow.document.write("<th>End Times</th>");
+newWindow.document.write("<th>Time</th>");
 newWindow.document.write("</tr>");
 for (var i = 0; i < COURSE_NUM; i++) {
 	
@@ -107,9 +91,8 @@ for (var i = 0; i < COURSE_NUM; i++) {
 	
 		newWindow.document.write("<td>"+COURSES[i].Subj+"</td>");
 		newWindow.document.write("<td>"+COURSES[i].Crse+"</td>");
-		newWindow.document.write("<td>"+COURSES[i].days+"</td>");
-        newWindow.document.write("<td>"+COURSES[i].times["start"]+"</td>");
-		newWindow.document.write("<td>"+COURSES[i].times["end"]+"</td>");
+		newWindow.document.write("<td>"+COURSES[i].strDays+"</td>");
+        newWindow.document.write("<td>"+COURSES[i].strTimes+"</td>");
 
         newWindow.document.write("</tr>");
 	}
