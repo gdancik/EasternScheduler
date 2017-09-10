@@ -72,7 +72,31 @@ for (var i = 0; i <commaCheck; i++){
 
 var COURSES = [];
 var COURSE_NUM = 0;
-var courseTable = 5;
+
+// converts time x (hh:mm am/pm) into military/decimal form
+// 2:15 pm --> 14.25
+function convertTime(x) {
+
+   // split x into min and hour
+	x = x.split(":");
+	var hour = x[0];
+    var min = x[1];
+
+    var PM = min.search("pm") > 0;
+    hour = parseInt(hour);
+    min = parseInt(min);
+
+    // convert to military time
+    if (hour < 12 && PM ) {
+        hour += 12;
+    } else if (hour == 12 && !PM) {
+        hour -= 12;
+    }
+	min = min/60;
+    return hour + min;
+}
+
+
 
 // start at 4th table (index 3) stop at 2nd to last table
 for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
@@ -97,56 +121,13 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 		//i.e. it will turn 4:30 PM into 16.5.
 		
 		var timeTable = tme.split("-");
-		var start = timeTable[0];
-		var end = timeTable[1];
-		var startTable = start.split(":");
-		var startHour = startTable[0];
-		var startMin = startTable[1];
-		var endTable = end.split(":");
-		var endHour = endTable[0];
-		var endMin = endTable[1];
-		
-		if ((start.length - start.replace(/p/g, "").length)>0){
-			startHour = Number(startHour) + 12;
-		}
-			
-		if ((end.length - end.replace(/p/g, "").length)>0){
-			endHour = Number(endHour) + 12;
-		}
-		
-		var minSplit = startMin.split(" ");
-		startMin = minSplit[0];
-		minSplit = endMin.split(" ");
-		endMin = minSplit[0];
-		
-		startMin = startMin/60;
-		
-		endMin = endMin/60;
-		
-		start = startHour + startMin;
-		
-		start = start.toFixed(2);
-		
-		end = endHour + endMin;
-		
-		end = end.toFixed(2);
-		
-		COURSES[j] = new Array(courseTable);
-		
-		COURSES[j][0] = subj;
-		COURSES[j][1] = crse;
-		COURSES[j][2] = dys;
-		COURSES[j][3] = start;
-		COURSES[j][4] = end;
-		
-		alert(COURSES[j][1]);
-		
-		alert("start: " + start + " end: " + end);
-		//var courseSet = [subj, crse, dys, start, end];
-		/*var course1 = new Course(subj, crse, dys.split(""),
-               {"start": start, "end": end} );*/
-		
-		//COURSES[COURSE_NUM] = courseSet;
+		var start = convertTime(timeTable[0]);
+		var end = convertTime(timeTable[1]);
+      
+        days = dys.split("");
+        tme = {"start": [start], "end": [end]};
+
+		COURSES[COURSE_NUM] = new Course(subj, crse, days, tme) 
 		COURSE_NUM++;
 			
 		} // end if statement
@@ -161,6 +142,14 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 console.log("COURSES FOUND: " + COURSE_NUM);
 
 var newWindow = window.open("", null);
+newWindow.document.write("<style>");
+newWindow.document.write(".evenRow {");
+newWindow.document.write("  background-color:lightgray;");
+newWindow.document.write("}");
+newWindow.document.write("</style>");
+
+
+newWindow.document.write("<h2> Course found </h2>");
 newWindow.document.write("<table>");
 //newWindow.document.write("<tr id=\"oddRow\"">);
 newWindow.document.write("<th>Subj</th>");
@@ -171,20 +160,23 @@ newWindow.document.write("<th>End Times</th>");
 newWindow.document.write("</tr>");
 for (var i = 0; i < COURSE_NUM; i++) {
 	
-	newWindow.document.write("<tr>");
+	//newWindow.document.write("<tr>");
 	
-	/*	if (i % 2 == 0){
-		newWindow.document.write("<tr id=\"evenRow\"");
+	if (i % 2 == 0){
+		newWindow.document.write("<tr class=\"evenRow\">");
 	}
 	else {
-		newWindow.document.write("<tr id=\"oddRow\"");
-	}*/
+		newWindow.document.write("<tr class=\"oddRow\">");
+	}
 	//This will alternate the color of the table rows for easier readability
-		for (var j = 0; j < courseTable; j++) {
 	
-		newWindow.document.write("<th>"+COURSES[i][j]+"</th>");
-		}
-		newWindow.document.write("</tr>");
+		newWindow.document.write("<td>"+COURSES[i].Subj+"</td>");
+		newWindow.document.write("<td>"+COURSES[i].Crse+"</td>");
+		newWindow.document.write("<td>"+COURSES[i].days+"</td>");
+        newWindow.document.write("<td>"+COURSES[i].times["start"]+"</td>");
+		newWindow.document.write("<td>"+COURSES[i].times["end"]+"</td>");
+
+        newWindow.document.write("</tr>");
 	}
 newWindow.document.write("</table>");
 
