@@ -100,3 +100,49 @@ function hasConflict(c1,c2) {
 }
 
 
+
+// create an index table for combinations when there are 
+//      arr[i] objects 
+// Example: combinations([2,3,1]  choose 2 x 3 x 1 objects
+var combinations = function(arr) {
+    var n = 1;
+    for (i = 0; i < arr.length; i++) {
+        n*= arr[i];
+    }
+
+    console.log("length = " + arr.length);
+    var combs = [];
+    for (i = 0; i < n; i++) {
+        combs[i] = new Array(arr.length);
+    }
+
+    var column = arr.length;
+    var numReps = 1;
+    while (column >0) {
+
+        var value = 0;
+        for (i = 1; i <= n; i++) {
+
+            if ((i-1)%numReps == 0) {
+                value++;
+                if (value > arr[column-1]) {
+                    value = 1;
+                }
+            }
+            combs[i-1][column-1] = value-1;
+            
+        }
+        
+        numReps *= arr[column-1];
+        column--;
+    }
+
+    return combs;
+}
+
+// print 2D array
+var print2D = function(x) {
+    for (i = 0; i < x.length; i++) {
+        console.log(x[i]);
+    }
+}
