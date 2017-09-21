@@ -36,7 +36,8 @@ function convertTime(x) {
  *        to current Course object; modify print() accordingly
  ************************************************************/
 Course = class {
-    constructor(Subj, Crse, strDays, strTimes) {
+    constructor(CRN, Subj, Crse, strDays, strTimes) {
+        this.CRN = CRN;
         this.Subj = Subj;
 		this.Crse = Crse;
         this.strDays = strDays;
@@ -64,16 +65,22 @@ Course = class {
 
     }
     print() {
-            console.log(this.Subj + "-" + this.Crse + this.strDays + "," + this.strTimes);
+            console.log("(" + this.CRN + ") " + this.Subj + "-" + this.Crse + " --", this.strDays + "," + this.strTimes);
         
 	}
 }
 
+function printCourses(a) {
+    for (var i = 0; i < a.length; i++) {
+        a[i].print();
+    }
+}
 
 function inRange(x,a,b) {
     return (a <= x && x <= b);
 }
 
+// returns 'true' if course c1 has a time conflict with course c2
 function hasConflict(c1,c2) {
     for (var i = 0; i < c1.days.length; i++) {
         for (var j = 0; j < c2.days.length; j++) {
@@ -92,25 +99,39 @@ function hasConflict(c1,c2) {
                 } else if (inRange(end2, start1, end1)) {
                     return true;
                 }
-
             }
         }
     }
     return false; 
 }
 
+// returns true if any courses in course array 'arr' have a time conflict
+function anyConflicts(arr) {
+    for (var i = 0; i < arr.length-1; i++) {
+        for (var j = i+1; j < arr.length; j++) {
+            if (hasConflict(arr[i], arr[j])) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 
 // create an index table for combinations when there are 
 //      arr[i] objects 
 // Example: combinations([2,3,1]  choose 2 x 3 x 1 objects
 var combinations = function(arr) {
+
+//    console.log("combinations using lengths of: ");
     var n = 1;
     for (i = 0; i < arr.length; i++) {
+        //console.log(arr[i]);
         n*= arr[i];
     }
 
-    console.log("length = " + arr.length);
+//    console.log("length = " + arr.length);
+//    console.log("n = " + n);
     var combs = [];
     for (i = 0; i < n; i++) {
         combs[i] = new Array(arr.length);
