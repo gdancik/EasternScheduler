@@ -54,10 +54,23 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
     		var dys = rows[i].cells[10].innerText;
     		var tme = rows[i].cells[11].innerText;
 
-		    COURSES[COURSE_NUM] = new Course(crn, subj, crse, dys, tme) 
-		    COURSE_NUM++;
+			if (tme.trim() == "TBA") {
+				alert("Days and/or times for the following course is TBA and will not be included in your schedule: " + subj + " " + crse);
+				continue;
+			}
+			
+			console.log("Course found " + subj + "-" + crse + " " + dys + ", " + tme);
+			var c = new Course(crn, subj, crse, dys, tme) 
+			if(i<rows.length-1) {
+				if (rows[i+1].cells[2].innerText.trim() == "") {
+					c.addTime(rows[i+1].cells[10].innerText, rows[i+1].cells[11].innerText);
+				}
+			}
 
-            courseArray[j].push( new Course(crn, subj, crse, dys, tme)   );
+		    COURSES[COURSE_NUM] = c;
+		    COURSE_NUM++;
+		    
+            courseArray[j].push(c);
 
 		} // end if statement
 		
@@ -87,6 +100,41 @@ newWindow.document.write("<th>Crse</th>");
 newWindow.document.write("<th>Days</th>");
 newWindow.document.write("<th>Time</th>");
 newWindow.document.write("</tr>");
+
+
+function writeCourse(c, i) {
+
+	for (var r = 0; r < c.strDays.length; r++) {
+
+		//This will alternate the color of the table rows for easier readability
+		if (i % 2 == 0){
+			newWindow.document.write("<tr class=\"evenRow\">");
+		} else {
+			newWindow.document.write("<tr class=\"oddRow\">");
+		}
+
+
+		// output course info, but if multi-row we only output days/times
+		if (r == 0) {
+			newWindow.document.write("<td>"+COURSES[i].CRN+"</td>");
+			newWindow.document.write("<td>"+COURSES[i].Subj+"</td>");
+			newWindow.document.write("<td>"+COURSES[i].Crse+"</td>");
+		} else {
+			newWindow.document.write("<td>"+"</td>");
+			newWindow.document.write("<td>"+"</td>");
+			newWindow.document.write("<td>"+"</td>");
+		}
+
+		// output days and times
+		newWindow.document.write("<td>"+COURSES[i].strDays[r]+"</td>");
+    	newWindow.document.write("<td>"+COURSES[i].strTimes[r]+"</td>");
+		newWindow.document.write("</tr>");
+        
+    }  
+}
+
+
+
 for (var i = 0; i < COURSE_NUM; i++) {
 	
 	//newWindow.document.write("<tr>");
@@ -96,22 +144,9 @@ for (var i = 0; i < COURSE_NUM; i++) {
         newWindow.document.write("<tr style = 'background-color: black'><td colspan=5> </td></tr>");
     }
 
-	if (i % 2 == 0){
-		newWindow.document.write("<tr class=\"evenRow\">");
-	}
-	else {
-		newWindow.document.write("<tr class=\"oddRow\">");
-	}
-	//This will alternate the color of the table rows for easier readability
-	
-		newWindow.document.write("<td>"+COURSES[i].CRN+"</td>");
-		newWindow.document.write("<td>"+COURSES[i].Subj+"</td>");
-		newWindow.document.write("<td>"+COURSES[i].Crse+"</td>");
-		newWindow.document.write("<td>"+COURSES[i].strDays+"</td>");
-        newWindow.document.write("<td>"+COURSES[i].strTimes+"</td>");
+	writeCourse(COURSES[i], i)
+}
 
-        newWindow.document.write("</tr>");
-	}
 newWindow.document.write("</table>");
 newWindow.document.write("<br/><br/>");
 

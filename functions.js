@@ -40,8 +40,8 @@ Course = class {
         this.CRN = CRN;
         this.Subj = Subj;
 		this.Crse = Crse;
-        this.strDays = strDays;
-        this.strTimes = strTimes;
+        this.strDays = [strDays];
+        this.strTimes = [strTimes];
 
         // get day, startTime and endTime arrays
         
@@ -64,9 +64,28 @@ Course = class {
         this.endTimes = endArray; 
 
     }
+
+    addTime(days, times) {
+        this.strDays.push(days);
+        this.strTimes.push(times);    
+
+        var timeTable = times.split("-");
+		var start = convertTime(timeTable[0]);
+		var end = convertTime(timeTable[1]);
+
+        days = days.split("");
+        for (var i = 0; i < days.length; i++) {
+           this.days.push(days[i]);
+           this.startTimes.push(start);
+           this.endTimes.push(end);
+        } 
+    }
+
     print() {
-            console.log("(" + this.CRN + ") " + this.Subj + "-" + this.Crse + " --", this.strDays + "," + this.strTimes);
-        
+            console.log("(" + this.CRN + ") " + this.Subj + "-" + this.Crse + " --", this.strDays[0] + ", " + this.strTimes[0]);
+            for (var i = 1; i < this.strDays.length; i++) {
+	            console.log("\t\t\t\t\t" + this.strDays[i] + ", " + this.strTimes[i]);
+            }
 	}
 }
 
