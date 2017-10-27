@@ -152,8 +152,6 @@ newWindow.document.write("</table>");
 newWindow.document.write("<br/><br/>");
 
 newWindow.document.write("<h1> Available Schedules </h1>");
-newWindow.document.write("<p> Coming soon... </p>");
-
 
 // output course information to console
 console.log("");
@@ -181,6 +179,9 @@ combs = combinations(lengths);
 //console.log("combinations = ");
 //print2D(combs);
 
+
+
+
 // for each combination
 for (i = 0; i < combs.length; i++) {
     
@@ -198,6 +199,72 @@ for (i = 0; i < combs.length; i++) {
        console.log("CONFLICT FOUND ")
        printCourses(schedule1);
        console.log(""); 
+    } 
+}
+
+// TO DO: modify code below to output possible schedules to new window in table form:
+// CRN | Subject  |  Course number (Crse)
+
+// for each combination
+var scheduleNum = 1;
+for (i = 0; i < combs.length; i++) {
+    
+    var schedule1 = [];
+    // create schedule for given combination -- NO CHANGES NEEDED
+    for (j = 0; j < combs[i].length; j++) {
+        schedule1.push(courseArray2[j][combs[i][j]]);
+    }
+
+    
+
+    if (!anyConflicts(schedule1)) {
+
+        // MODIFY HERE
+         newWindow.document.write("Schedule " + scheduleNum + "<br>");       
+        scheduleNum++;
+        
+        // TO DO: fix border to only show 1 line by adding
+        // style="border-collapse:collapse" in table tag;
+        newWindow.document.write("<table border = 1 style='border-collapse:collapse'>");
+
+        // TO DO: output heading, CRN, Subj, Crse
+        newWindow.document.write("<tr>")
+        newWindow.document.write("<th>CRN</th>")
+        newWindow.document.write("<th>Subject</th>")
+        newWindow.document.write("<th>Course Number</th>")
+        newWindow.document.write("<th>Day</th>");
+        newWindow.document.write("<th>Time</th>");
+        newWindow.document.write("</tr>")
+        
+    
+       for (var s = 0; s < schedule1.length; s++) {
+    
+         
+           var c = schedule1[s];           
+           console.log(c.Subj + " " + c.Crse + " " + c.strDays + c.strTimes);
+           
+           
+           //newWindow.document.write("(" + c.CRN + ") " + c.Subj + " " + c.Crse + "<br>");     
+    
+           
+            newWindow.document.write("<tr>");
+            newWindow.document.write("<td>" + c.CRN +"</td>");
+            newWindow.document.write("<td>" + c.Subj+"</td>");
+            newWindow.document.write("<td>" + c.Crse+"</td>");
+            newWindow.document.write("<td>" + c.strDays+"</td>");
+            newWindow.document.write("<td>" + c.strTimes+"</td>");
+            newWindow.document.write("</tr>");
+        
+           
+       }
+    
+            newWindow.document.write("</table>");
+        // END MODIFICATIONS
+        
+        newWindow.document.write("<br>");     
+       
+    } else {
+    //    newWindow.document.write("Schedule " + (i+1) + " -- CONFLICT<br>");       
     } 
 }
 
