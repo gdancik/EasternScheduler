@@ -241,13 +241,33 @@ for (i = 0; i < combs.length; i++) {
     
          
            var c = schedule1[s];           
-           console.log(c.Subj + " " + c.Crse + " " + c.strDays + c.strTimes);
+           //console.log(c.Subj + " " + c.Crse + " " + c.strDays + c.strTimes);
            
            
            //newWindow.document.write("(" + c.CRN + ") " + c.Subj + " " + c.Crse + "<br>");     
     
            
-            newWindow.document.write("<tr>");
+           // TO DO: if the day is MWF, then highlight in yellow
+           //        if the day is TR, then highlight in pink
+           //        otherwise no highlight
+           //        the day information is in c.strDays
+        
+           console.log("days = " + c.strDays);
+           if (c.strDays == "MWF"){
+             newWindow.document.write("<tr style = 'background-color: yellow'>"); 
+           }
+           else if (c.strDays == "TR"){
+              newWindow.document.write("<tr style = 'background-color: pink'>");  
+           } else {
+               newWindow.document.write("<tr>"); 
+           }
+            // change to e.g., the day string is equal to "MWF"
+            //if (s == 0) {
+            //    newWindow.document.write("<tr style = 'background-color: yellow'>");
+            //} else {
+            //    newWindow.document.write("<tr>");
+            //}
+           
             newWindow.document.write("<td>" + c.CRN +"</td>");
             newWindow.document.write("<td>" + c.Subj+"</td>");
             newWindow.document.write("<td>" + c.Crse+"</td>");
