@@ -268,11 +268,19 @@ for (i = 0; i < combs.length; i++) {
             //    newWindow.document.write("<tr>");
             //}
            
+           
+           var strDays = c.strDays;
+           var strTimes = c.strTimes;
+                                  
+           strDays = strDays.join("<br>");
+           strTimes = strTimes.join("<br>");
+           
+           
             newWindow.document.write("<td>" + c.CRN +"</td>");
             newWindow.document.write("<td>" + c.Subj+"</td>");
             newWindow.document.write("<td>" + c.Crse+"</td>");
-            newWindow.document.write("<td>" + c.strDays+"</td>");
-            newWindow.document.write("<td>" + c.strTimes+"</td>");
+            newWindow.document.write("<td>" + strDays+"</td>");
+            newWindow.document.write("<td>" + strTimes+"</td>");
             newWindow.document.write("</tr>");
         
            
