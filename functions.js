@@ -2,33 +2,6 @@
 
 
 /************************************************************
- * convertTime: converts time 'x' of form 'hh:mm am/pm' into 
- * military/decimal form, ex: 2:15 pm --> 14.25
- ***********************************************************/
-function convertTime(x) {
-
-   // split x into min and hour
-	x = x.split(":");
-	var hour = x[0];
-    var min = x[1];
-
-    var PM = min.search("pm") > 0;
-    hour = parseInt(hour);
-    min = parseInt(min);
-
-    // convert to military time
-    if (hour < 12 && PM ) {
-        hour += 12;
-    } else if (hour == 12 && !PM) {
-        hour -= 12;
-    }
-	min = min/60;
-    return hour + min;
-}
-
-
-
-/************************************************************
  * Course object used to store course information
  * c1 = new Course("CSC", "210", "MWF", "09:00 am-09:50 pm") 
  *
@@ -65,6 +38,7 @@ Course = class {
 
     }
 
+	// adds a new course time (used for courses that span multiple lines in schedule)
     addTime(days, times) {
         this.strDays.push(days);
         this.strTimes.push(times);    
@@ -89,12 +63,40 @@ Course = class {
 	}
 }
 
+
+/************************************************************
+ * convertTime: converts time 'x' of form 'hh:mm am/pm' into 
+ * military/decimal form, ex: 2:15 pm --> 14.25
+ ***********************************************************/
+function convertTime(x) {
+
+   // split x into min and hour
+	x = x.split(":");
+	var hour = x[0];
+    var min = x[1];
+
+    var PM = min.search("pm") > 0;
+    hour = parseInt(hour);
+    min = parseInt(min);
+
+    // convert to military time
+    if (hour < 12 && PM ) {
+        hour += 12;
+    } else if (hour == 12 && !PM) {
+        hour -= 12;
+    }
+	min = min/60;
+    return hour + min;
+}
+
+// print information for an array of courses
 function printCourses(a) {
     for (var i = 0; i < a.length; i++) {
         a[i].print();
     }
 }
 
+// returns true if x is in [a,b]
 function inRange(x,a,b) {
     return (a <= x && x <= b);
 }
@@ -137,20 +139,25 @@ function anyConflicts(arr) {
 }
 
 
-// create an index table for combinations when there are 
-//      arr[i] objects 
+// create an index table to iterate through all possible
+// combinations when there are  arr[i] objects of each type
 // Example: combinations([2,3,1]  choose 2 x 3 x 1 objects
+// will return:
+// [ 0, 0, 0 ]
+// [ 0, 1, 0 ]
+// [ 0, 2, 0 ]
+// [ 1, 0, 0 ]
+// [ 1, 1, 0 ]
+// [ 1, 2, 0 ]
+
 var combinations = function(arr) {
 
-//    console.log("combinations using lengths of: ");
     var n = 1;
     for (i = 0; i < arr.length; i++) {
-        //console.log(arr[i]);
+        console.log(arr[i]);
         n*= arr[i];
     }
 
-//    console.log("length = " + arr.length);
-//    console.log("n = " + n);
     var combs = [];
     for (i = 0; i < n; i++) {
         combs[i] = new Array(arr.length);
@@ -186,3 +193,5 @@ var print2D = function(x) {
         console.log(x[i]);
     }
 }
+
+
