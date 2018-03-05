@@ -34,6 +34,7 @@ for (var j = 0; j < courses.length; j++) {
     courseArray[j] = [];
 }
 
+// look through schedule
 // start at 4th table (index 3) stop at 2nd to last table
 for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
   var table = html[tableIndex];  // index 14 is CS
@@ -62,6 +63,8 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 			
 			console.log("Course found " + subj + "-" + crse + " " + dys + ", " + tme);
 			var c = new Course(crn, subj, crse, dys, tme) 
+			
+			// check next row since some courses take 2 rows
 			if(i<rows.length-1) {
 				if (rows[i+1].cells[2].innerText.trim() == "") {
 					c.addTime(rows[i+1].cells[10].innerText, rows[i+1].cells[11].innerText);
@@ -84,6 +87,11 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 
 console.log("COURSES FOUND: " + COURSE_NUM);
 
+
+
+
+// create new window and output the results
+
 var newWindow = window.open("", null);
 newWindow.document.write("<style>");
 newWindow.document.write(".evenRow {");
@@ -92,64 +100,10 @@ newWindow.document.write("}");
 newWindow.document.write("</style>");
 
 
-newWindow.document.write("<h2> Courses found </h2>");
-newWindow.document.write("<table>");
-//newWindow.document.write("<tr id=\"oddRow\"">);
-newWindow.document.write("<th>CRN</th>");
-newWindow.document.write("<th>Subj</th>");
-newWindow.document.write("<th>Crse</th>");
-newWindow.document.write("<th>Days</th>");
-newWindow.document.write("<th>Time</th>");
-newWindow.document.write("</tr>");
+printCoursesFound(newWindow, COURSES, COURSE_NUM);
 
 
-function writeCourse(c, i) {
-
-	for (var r = 0; r < c.strDays.length; r++) {
-
-		//This will alternate the color of the table rows for easier readability
-		if (i % 2 == 0){
-			newWindow.document.write("<tr class=\"evenRow\">");
-		} else {
-			newWindow.document.write("<tr class=\"oddRow\">");
-		}
-
-
-		// output course info, but if multi-row we only output days/times
-		if (r == 0) {
-			newWindow.document.write("<td>"+COURSES[i].CRN+"</td>");
-			newWindow.document.write("<td>"+COURSES[i].Subj+"</td>");
-			newWindow.document.write("<td>"+COURSES[i].Crse+"</td>");
-		} else {
-			newWindow.document.write("<td>"+"</td>");
-			newWindow.document.write("<td>"+"</td>");
-			newWindow.document.write("<td>"+"</td>");
-		}
-
-		// output days and times
-		newWindow.document.write("<td>"+COURSES[i].strDays[r]+"</td>");
-    	newWindow.document.write("<td>"+COURSES[i].strTimes[r]+"</td>");
-		newWindow.document.write("</tr>");
-        
-    }  
-}
-
-
-
-for (var i = 0; i < COURSE_NUM; i++) {
-	
-	//newWindow.document.write("<tr>");
-
-    // add a 'blank' line between courses
-    if (i> 0 && (COURSES[i].Subj != COURSES[i-1].Subj || COURSES[i].Crse != COURSES[i-1].Crse)) {
-        newWindow.document.write("<tr style = 'background-color: black'><td colspan=5> </td></tr>");
-    }
-
-	writeCourse(COURSES[i], i)
-}
-
-newWindow.document.write("</table>");
-newWindow.document.write("<br/><br/>");
+// output available schedules
 
 newWindow.document.write("<h1> Available Schedules </h1>");
 
@@ -158,8 +112,8 @@ console.log("");
 console.log("");
 
 
-// course array with valid courses only
-var courseArray2 = [];
+// create second course array (courseArray2) for valid courses only
+var courseArray2 = [];  
 for (i = 0; i < courseArray.length; i++) {
     if (courseArray[i].length == 0) {
         newWindow.alert("The course " + courses[i] + " was not found");
@@ -168,33 +122,33 @@ for (i = 0; i < courseArray.length; i++) {
     } 
 }
 
-
+// creates lengths array with the number of each course found
 lengths = [];
 for (i = 0; i < courseArray2.length; i++) {
     lengths.push(courseArray2[i].length);
 }
 
+// get index array for all course combinations
 combs = combinations(lengths);
 
-//console.log("combinations = ");
-//print2D(combs);
-
-
-
-
 // for each combination
+var scheduleNum = 0;
+
 for (i = 0; i < combs.length; i++) {
-    
+
+    // create schedule for given combination    
     var schedule1 = [];
-    // create schedule for given combination
     for (j = 0; j < combs[i].length; j++) {
         schedule1.push(courseArray2[j][combs[i][j]])
     }
 
+	// if schedule is good, print it
     if (!anyConflicts(schedule1)) {
-       console.log("Possible Schedule: ")
-       printCourses(schedule1);
-       console.log(""); 
+       	console.log("Possible Schedule: ")
+       	printCourses(schedule1);
+       	scheduleNum++;
+       	console.log("");
+       	printSchedule(newWindow, scheduleNum, schedule1);        
     } else {
        console.log("CONFLICT FOUND ")
        printCourses(schedule1);
@@ -202,97 +156,5 @@ for (i = 0; i < combs.length; i++) {
     } 
 }
 
-// TO DO: modify code below to output possible schedules to new window in table form:
-// CRN | Subject  |  Course number (Crse)
 
-// for each combination
-var scheduleNum = 1;
-for (i = 0; i < combs.length; i++) {
-    
-    var schedule1 = [];
-    // create schedule for given combination -- NO CHANGES NEEDED
-    for (j = 0; j < combs[i].length; j++) {
-        schedule1.push(courseArray2[j][combs[i][j]]);
-    }
-
-    
-
-    if (!anyConflicts(schedule1)) {
-
-        // MODIFY HERE
-         newWindow.document.write("Schedule " + scheduleNum + "<br>");       
-        scheduleNum++;
-        
-        // TO DO: fix border to only show 1 line by adding
-        // style="border-collapse:collapse" in table tag;
-        newWindow.document.write("<table border = 1 style='border-collapse:collapse'>");
-
-        // TO DO: output heading, CRN, Subj, Crse
-        newWindow.document.write("<tr>")
-        newWindow.document.write("<th>CRN</th>")
-        newWindow.document.write("<th>Subject</th>")
-        newWindow.document.write("<th>Course Number</th>")
-        newWindow.document.write("<th>Day</th>");
-        newWindow.document.write("<th>Time</th>");
-        newWindow.document.write("</tr>")
-        
-    
-       for (var s = 0; s < schedule1.length; s++) {
-    
-         
-           var c = schedule1[s];           
-           //console.log(c.Subj + " " + c.Crse + " " + c.strDays + c.strTimes);
-           
-           
-           //newWindow.document.write("(" + c.CRN + ") " + c.Subj + " " + c.Crse + "<br>");     
-    
-           
-           // TO DO: if the day is MWF, then highlight in yellow
-           //        if the day is TR, then highlight in pink
-           //        otherwise no highlight
-           //        the day information is in c.strDays
-        
-           console.log("days = " + c.strDays);
-           if (c.strDays == "MWF"){
-             newWindow.document.write("<tr style = 'background-color: yellow'>"); 
-           }
-           else if (c.strDays == "TR"){
-              newWindow.document.write("<tr style = 'background-color: pink'>");  
-           } else {
-               newWindow.document.write("<tr>"); 
-           }
-            // change to e.g., the day string is equal to "MWF"
-            //if (s == 0) {
-            //    newWindow.document.write("<tr style = 'background-color: yellow'>");
-            //} else {
-            //    newWindow.document.write("<tr>");
-            //}
-           
-           
-           var strDays = c.strDays;
-           var strTimes = c.strTimes;
-                                  
-           strDays = strDays.join("<br>");
-           strTimes = strTimes.join("<br>");
-           
-           
-            newWindow.document.write("<td>" + c.CRN +"</td>");
-            newWindow.document.write("<td>" + c.Subj+"</td>");
-            newWindow.document.write("<td>" + c.Crse+"</td>");
-            newWindow.document.write("<td>" + strDays+"</td>");
-            newWindow.document.write("<td>" + strTimes+"</td>");
-            newWindow.document.write("</tr>");
-        
-           
-       }
-    
-            newWindow.document.write("</table>");
-        // END MODIFICATIONS
-        
-        newWindow.document.write("<br>");     
-       
-    } else {
-    //    newWindow.document.write("Schedule " + (i+1) + " -- CONFLICT<br>");       
-    } 
-}
 

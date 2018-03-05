@@ -4,6 +4,7 @@ function hello(input) {
     //codeString = "qry=3;";
     chrome.tabs.executeScript(null, {code: codeString});
     chrome.tabs.executeScript(null, {file: "functions.js"});
+    chrome.tabs.executeScript(null, {file: "outputWindowFunctions.js"});
     chrome.tabs.executeScript(null, {file: "schedule.js"});
 }
 
