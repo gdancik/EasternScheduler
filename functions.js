@@ -5,7 +5,7 @@
  * Course object used to store course information
  * c1 = new Course("CSC", "210", "MWF", "09:00 am-09:50 pm") 
  *
- * TO DO: add CRN; write function to add another day/times 
+ * TO DO: add instructor; write function to add another day/times 
  *        to current Course object; modify print() accordingly
  ************************************************************/
 Course = class {
@@ -15,6 +15,7 @@ Course = class {
 		this.Crse = Crse;
         this.strDays = [strDays];
         this.strTimes = [strTimes];
+		this.Instructor = Instructor; 
 
         // get day, startTime and endTime arrays
         
@@ -56,7 +57,7 @@ Course = class {
     }
 
     print() {
-            console.log("(" + this.CRN + ") " + this.Subj + "-" + this.Crse + " --", this.strDays[0] + ", " + this.strTimes[0]);
+            console.log("(" + this.CRN + ") " + this.Subj + "-" + this.Crse + " --", this.strDays[0] + ", " + this.strTimes[0]) + ", " + this.Instructor;
             for (var i = 1; i < this.strDays.length; i++) {
 	            console.log("\t\t\t\t\t" + this.strDays[i] + ", " + this.strTimes[i]);
             }

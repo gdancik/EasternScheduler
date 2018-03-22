@@ -55,6 +55,8 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 	    	var crse = rows[i].cells[4].innerText;
     		var dys = rows[i].cells[10].innerText;
     		var tme = rows[i].cells[11].innerText;
+			var Instructor = rows[i].cells[21].innerText;
+			
 
 			if (tme.trim() == "TBA") {
 				alert("Days and/or times for the following course is TBA and will not be included in your schedule: " + subj + " " + crse);
