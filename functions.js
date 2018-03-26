@@ -140,6 +140,18 @@ function anyConflicts(arr) {
 }
 
 
+function tooEarly(arr) {
+	for (var i = 0; i < arr.length; i++) {
+		var start = arr[i].startTimes[0];
+		console.log("start time is: " + start);
+		if (start == "8") {
+			return true;
+		}
+	}
+	return false;
+}
+
+
 // create an index table to iterate through all possible
 // combinations when there are  arr[i] objects of each type
 // Example: combinations([2,3,1]  choose 2 x 3 x 1 objects

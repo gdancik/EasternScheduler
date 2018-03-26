@@ -63,8 +63,8 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 				continue;
 			}
 			
-			console.log("Course found " + subj + "-" + crse + " " + dys + ", " + tme);
-			var c = new Course(crn, subj, crse, dys, tme) 
+			console.log("Course found " + subj + "-" + crse + " " + dys + ", " + tme + ", " + Instructor);
+			var c = new Course(crn, subj, crse, dys, tme, Instructor) 
 			
 			// check next row since some courses take 2 rows
 			if(i<rows.length-1) {
@@ -96,9 +96,15 @@ console.log("COURSES FOUND: " + COURSE_NUM);
 
 var newWindow = window.open("", null);
 newWindow.document.write("<style>");
-newWindow.document.write(".evenRow {");
-newWindow.document.write("  background-color:lightgray;");
-newWindow.document.write("}");
+
+newWindow.document.write(".evenRow {\n");
+newWindow.document.write("  background-color:lightgray;\n");
+newWindow.document.write("}\n");
+
+newWindow.document.write(".early {\n");
+newWindow.document.write("  background-color:red;\n");
+newWindow.document.write("}\n");
+
 newWindow.document.write("</style>");
 
 
