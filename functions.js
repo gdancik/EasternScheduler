@@ -140,6 +140,8 @@ function anyConflicts(arr) {
 }
 
 
+
+
 function tooEarly(arr) {
 	for (var i = 0; i < arr.length; i++) {
 		var start = arr[i].startTimes[0];

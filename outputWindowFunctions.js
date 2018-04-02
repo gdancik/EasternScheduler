@@ -68,6 +68,38 @@ function writeCourse(newWindow, c, i) {
 }
 
 
+var x = 1;
+
+function myClick() {
+	
+	tables = newWindow.document.getElementByClass("early")
+	
+	
+
+	if (x%2 == 1){
+		
+		var i;
+		for (i = 0; i < tables.length; i++) {
+			tables[i].style.display = "none";
+		}
+		
+		//newWindow.document.getElementByStyle("table2").style.display = "none";
+
+		newWindow.document.getElementById("b1").innerText = "Click me to show";
+
+	}else{
+		var i;
+		for (i = 0; i < tables.length; i++) {
+			tables[i].style.display = "table";
+		}
+		//newWindow.document.getElementById("table2").style.display = "table";
+
+		newWindow.document.getElementById("b1").innerText = "Click me to hide";
+
+	}
+	x = x + 1;
+}
+
 // outputs a single schedule to the window
 function printSchedule(newWindow, scheduleNum, schedule1) {
 

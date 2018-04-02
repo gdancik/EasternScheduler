@@ -115,6 +115,21 @@ printCoursesFound(newWindow, COURSES, COURSE_NUM);
 
 newWindow.document.write("<h1> Available Schedules </h1>");
 
+//newWindow.document.write('<script src="schedule.js"></script>')
+
+
+
+
+
+newWindow.document.write('<button type="button" onclick="functions.myClick()" id="b1"> Click me to hide the early schedule</button>')
+
+
+
+newWindow.document.write("<br>")
+
+newWindow.document.write("<br>")
+
+
 // output course information to console
 console.log("");
 console.log("");
