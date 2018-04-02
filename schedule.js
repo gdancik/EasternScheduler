@@ -95,6 +95,7 @@ console.log("COURSES FOUND: " + COURSE_NUM);
 // create new window and output the results
 
 var newWindow = window.open("", null);
+newWindow.document.write("<head>");
 newWindow.document.write("<style>");
 
 newWindow.document.write(".evenRow {\n");
@@ -107,6 +108,10 @@ newWindow.document.write("}\n");
 
 newWindow.document.write("</style>");
 
+newWindow.document.write("</head>");
+
+//newWindow.write("<div id = \"body\">");
+//newWindow.write("</div>");
 
 printCoursesFound(newWindow, COURSES, COURSE_NUM);
 
@@ -121,7 +126,7 @@ newWindow.document.write("<h1> Available Schedules </h1>");
 
 
 
-newWindow.document.write('<button type="button" onclick="functions.myClick()" id="b1"> Click me to hide the early schedule</button>')
+newWindow.document.write('<button type="button" onclick="myClick()" id="b1"> Click me to hide the early schedule</button>')
 
 
 
@@ -178,6 +183,5 @@ for (i = 0; i < combs.length; i++) {
        console.log(""); 
     } 
 }
-
 
 
