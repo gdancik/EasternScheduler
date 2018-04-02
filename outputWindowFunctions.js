@@ -68,14 +68,12 @@ function writeCourse(newWindow, c, i) {
 }
 
 
-var f = "function myClick() {alert('hi');}"
+var f = "function myClick() {alert(\"hi\");}"
 
-
-
-//var newScript = document.createElement("script");
-//var inlineScript = document.createTextNode(f);
-//newScript.appendChild(inlineScript);
-//newWindow.document.getElementById("body").appendChild(newScript);
+var newScript = document.createElement("script");
+var inlineScript = document.createTextNode(f);
+newScript.appendChild(inlineScript);
+newWindow.document.getElementById("body").appendChild(newScript);
 
 
 // outputs a single schedule to the window

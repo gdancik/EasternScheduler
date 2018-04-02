@@ -110,8 +110,8 @@ newWindow.document.write("</style>");
 
 newWindow.document.write("</head>");
 
-//newWindow.write("<div id = \"body\">");
-//newWindow.write("</div>");
+newWindow.document.write("<div id = \"body\">");
+newWindow.document.write("</div>");
 
 printCoursesFound(newWindow, COURSES, COURSE_NUM);
 
