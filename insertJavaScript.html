@@ -1,0 +1,45 @@
+<html>
+<body>
+<h1> Heading 1 </h1>
+
+<button onclick = "clickMe()"> Click! </button>
+
+
+
+<script>
+
+document.write("<p> Text below the button </p>");
+
+function clickMe() {
+   
+   var newWindow = window.open("", null);
+   
+   newWindow.document.write("<body id = \"body\">");
+   newWindow.document.write("<style>\n");
+   newWindow.document.write("h1 {");
+   newWindow.document.write("  background-color:lightgray;");
+   newWindow.document.write("}");
+   newWindow.document.write("</style>\n");
+
+   var f = "function pop() { " + 
+           " alert(\"This is an alert\");" +
+           "}";
+
+   var newScript = document.createElement("script");
+   var inlineScript = document.createTextNode(f);
+   newScript.appendChild(inlineScript); 
+   newWindow.document.getElementById("body").appendChild(newScript);
+
+
+   newWindow.document.write("<button onclick = 'pop()'>Button </button>");
+   
+   newWindow.document.write("<h1> This is a new page </h1>");
+   newWindow.document.write("</body>");
+   
+}
+</script>
+
+</body>
+
+</html>
+
