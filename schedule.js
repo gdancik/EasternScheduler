@@ -55,14 +55,16 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 	    	var crse = rows[i].cells[4].innerText;
     		var dys = rows[i].cells[10].innerText;
     		var tme = rows[i].cells[11].innerText;
+			var Instructor = rows[i].cells[21].innerText;
+			
 
 			if (tme.trim() == "TBA") {
 				alert("Days and/or times for the following course is TBA and will not be included in your schedule: " + subj + " " + crse);
 				continue;
 			}
 			
-			console.log("Course found " + subj + "-" + crse + " " + dys + ", " + tme);
-			var c = new Course(crn, subj, crse, dys, tme) 
+			console.log("Course found " + subj + "-" + crse + " " + dys + ", " + tme + ", " + Instructor);
+			var c = new Course(crn, subj, crse, dys, tme, Instructor) 
 			
 			// check next row since some courses take 2 rows
 			if(i<rows.length-1) {
@@ -93,12 +95,23 @@ console.log("COURSES FOUND: " + COURSE_NUM);
 // create new window and output the results
 
 var newWindow = window.open("", null);
+newWindow.document.write("<head>");
 newWindow.document.write("<style>");
-newWindow.document.write(".evenRow {");
-newWindow.document.write("  background-color:lightgray;");
-newWindow.document.write("}");
+
+newWindow.document.write(".evenRow {\n");
+newWindow.document.write("  background-color:lightgray;\n");
+newWindow.document.write("}\n");
+
+newWindow.document.write(".early {\n");
+newWindow.document.write("  background-color:red;\n");
+newWindow.document.write("}\n");
+
 newWindow.document.write("</style>");
 
+newWindow.document.write("</head>");
+
+newWindow.document.write("<div id = \"body\">");
+newWindow.document.write("</div>");
 
 printCoursesFound(newWindow, COURSES, COURSE_NUM);
 
@@ -106,6 +119,21 @@ printCoursesFound(newWindow, COURSES, COURSE_NUM);
 // output available schedules
 
 newWindow.document.write("<h1> Available Schedules </h1>");
+
+//newWindow.document.write('<script src="schedule.js"></script>')
+
+
+
+
+
+newWindow.document.write('<button type="button" onclick="myClick()" id="b1"> Click me to hide the early schedule</button>')
+
+
+
+newWindow.document.write("<br>")
+
+newWindow.document.write("<br>")
+
 
 // output course information to console
 console.log("");
@@ -155,6 +183,5 @@ for (i = 0; i < combs.length; i++) {
        console.log(""); 
     } 
 }
-
 
 

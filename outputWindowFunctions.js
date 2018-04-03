@@ -7,8 +7,11 @@ function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
 	newWindow.document.write("<th>CRN</th>");
 	newWindow.document.write("<th>Subj</th>");
 	newWindow.document.write("<th>Crse</th>");
+	newWindow.document.write("<th>Instructor</th>");
+	
 	newWindow.document.write("<th>Days</th>");
 	newWindow.document.write("<th>Time</th>");
+	
 	newWindow.document.write("</tr>");
 
 
@@ -48,7 +51,9 @@ function writeCourse(newWindow, c, i) {
 			newWindow.document.write("<td>"+COURSES[i].CRN+"</td>");
 			newWindow.document.write("<td>"+COURSES[i].Subj+"</td>");
 			newWindow.document.write("<td>"+COURSES[i].Crse+"</td>");
+			newWindow.document.write("<td>"+COURSES[i].Instructor+"</td>");
 		} else {
+			newWindow.document.write("<td>"+"</td>");
 			newWindow.document.write("<td>"+"</td>");
 			newWindow.document.write("<td>"+"</td>");
 			newWindow.document.write("<td>"+"</td>");
@@ -63,20 +68,39 @@ function writeCourse(newWindow, c, i) {
 }
 
 
+var f = "function myClick() {alert(\"hi\");}"
+
+var newScript = document.createElement("script");
+var inlineScript = document.createTextNode(f);
+newScript.appendChild(inlineScript);
+newWindow.document.getElementById("body").appendChild(newScript);
+
+
 // outputs a single schedule to the window
 function printSchedule(newWindow, scheduleNum, schedule1) {
 
+		var early = tooEarly(schedule1);
+		
     	newWindow.document.write("Schedule " + scheduleNum + "<br>");       
         
+		
         // TO DO: fix border to only show 1 line by adding
         // style="border-collapse:collapse" in table tag;
-        newWindow.document.write("<table border = 1 style='border-collapse:collapse'>");
 
+		if (early) {
+			newWindow.document.write("<table border = 1 style='border-collapse:collapse' class = 'early'>");
+		} else {		
+			newWindow.document.write("<table border = 1 style='border-collapse:collapse'>");
+		}
+		
+		
         // TO DO: output heading, CRN, Subj, Crse
         newWindow.document.write("<tr>")
         newWindow.document.write("<th>CRN</th>")
         newWindow.document.write("<th>Subject</th>")
         newWindow.document.write("<th>Course Number</th>")
+		newWindow.document.write("<th>Instructor</th>")
+		
         newWindow.document.write("<th>Day</th>");
         newWindow.document.write("<th>Time</th>");
         newWindow.document.write("</tr>")
@@ -89,6 +113,8 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
             newWindow.document.write("<td>" + c.CRN +"</td>");
             newWindow.document.write("<td>" + c.Subj+"</td>");
             newWindow.document.write("<td>" + c.Crse+"</td>");
+			newWindow.document.write("<td>" + c.Instructor+"</td>");
+			
             newWindow.document.write("<td>" + c.strDays+"</td>");
             newWindow.document.write("<td>" + c.strTimes+"</td>");
             newWindow.document.write("</tr>");
