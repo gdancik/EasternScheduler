@@ -2,7 +2,7 @@
 // outputs courses found to the new window
 function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
 
-	newWindow.document.write("<h2> Courses found </h2>");
+	newWindow.document.write("<h1> Courses Found </h1>");
 	newWindow.document.write("<table>");
 	newWindow.document.write("<th>CRN</th>");
 	newWindow.document.write("<th>Subj</th>");
@@ -68,41 +68,39 @@ function writeCourse(newWindow, c, i) {
 }
 
 
-var f = "function myClick() {alert(\"hi\");}"
-
-var newScript = document.createElement("script");
-var inlineScript = document.createTextNode(f);
-newScript.appendChild(inlineScript);
-newWindow.document.getElementById("body").appendChild(newScript);
-
-
 // outputs a single schedule to the window
 function printSchedule(newWindow, scheduleNum, schedule1) {
 
 		var early = tooEarly(schedule1);
 		
-    	newWindow.document.write("Schedule " + scheduleNum + "<br>");       
         
 		
         // TO DO: fix border to only show 1 line by adding
         // style="border-collapse:collapse" in table tag;
 
 		if (early) {
-			newWindow.document.write("<table border = 1 style='border-collapse:collapse' class = 'early'>");
+			newWindow.document.write("<div class = 'earlyDiv'>");
 		} else {		
-			newWindow.document.write("<table border = 1 style='border-collapse:collapse'>");
+			newWindow.document.write("<div class = 'noearlyDiv'>");
 		}
-		
+	
+        var className = "noearlyTable";
+        if (early) {
+            className = "earlyTable";
+        }
+
+        	newWindow.document.write("<h3 style = 'display:inline;'>Schedule " + scheduleNum + "</h3>");       
+			newWindow.document.write("<table border = 1 style='border-collapse:collapse' width='60%' class = \"" + className + "\">");
 		
         // TO DO: output heading, CRN, Subj, Crse
         newWindow.document.write("<tr>")
-        newWindow.document.write("<th>CRN</th>")
-        newWindow.document.write("<th>Subject</th>")
-        newWindow.document.write("<th>Course Number</th>")
-		newWindow.document.write("<th>Instructor</th>")
+        newWindow.document.write("<th width = '10%'>CRN</th>")
+        newWindow.document.write("<th width = '10%'>Subject</th>")
+        newWindow.document.write("<th width = '10%'>Course Number</th>")
+		newWindow.document.write("<th width = '10%'>Instructor</th>")
 		
-        newWindow.document.write("<th>Day</th>");
-        newWindow.document.write("<th>Time</th>");
+        newWindow.document.write("<th width = '10%'>Day</th>");
+        newWindow.document.write("<th width = '20%'>Time</th>");
         newWindow.document.write("</tr>")
             
        	for (var s = 0; s < schedule1.length; s++) {
@@ -122,6 +120,7 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
        	}
     
     	newWindow.document.write("</table>");        
+    	newWindow.document.write("</div>");        
         newWindow.document.write("<br>");     
        
 }

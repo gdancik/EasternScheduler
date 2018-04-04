@@ -102,9 +102,14 @@ newWindow.document.write(".evenRow {\n");
 newWindow.document.write("  background-color:lightgray;\n");
 newWindow.document.write("}\n");
 
-newWindow.document.write(".early {\n");
-newWindow.document.write("  background-color:red;\n");
+newWindow.document.write(".earlyTable {\n");
+newWindow.document.write("  background-color:lightcoral;\n");
 newWindow.document.write("}\n");
+
+newWindow.document.write(".noearlyTable {\n");
+newWindow.document.write("  background-color:lightyellow;\n");
+newWindow.document.write("}\n");
+
 
 newWindow.document.write("</style>");
 
@@ -123,11 +128,40 @@ newWindow.document.write("<h1> Available Schedules </h1>");
 //newWindow.document.write('<script src="schedule.js"></script>')
 
 
+//newWindow.document.write('<button type="button" onclick="myClick()" id="b1"> Click me to hide the early schedule</button>')
+
+newWindow.document.write("<button onclick='myClick()' id='b1'> Click me to hide schedules with courses that start before 9:00 am</button>")
+
+
+var f = "earlyCount = 1;\n" + 
+  "function myClick() {\n" +
+
+	"//alert(\"in myClick\");\n" +
+
+    "tables = document.getElementsByClassName('earlyDiv')\n" +
+    "console.log(\"num found = \" + tables.length);\n" + 
+    "var type = 'none';\n" +
+    "if (earlyCount == 2){\n" +
+    "     type = 'block';\n" +
+    "}\n" +
+ "   for (var i = 0; i < tables.length; i++) {" +
+     "       tables[i].style.display = type;" +
+         "   }" +
+     "earlyCount = earlyCount + 1;\n" +
+       "document.getElementById('b1').innerText = 'Click me to show all possible schedules';\n" +
+     "if (earlyCount >2) {\n" +
+     "  earlyCount = 1;\n" +
+       "document.getElementById('b1').innerText = 'Click me to hide schedules with courses before 9:00am';\n" +
+     "}" +
+"};";
 
 
 
-newWindow.document.write('<button type="button" onclick="myClick()" id="b1"> Click me to hide the early schedule</button>')
 
+   var newScript = document.createElement("script");
+   var inlineScript = document.createTextNode(f);
+   newScript.appendChild(inlineScript); 
+   newWindow.document.getElementById("body").appendChild(newScript);
 
 
 newWindow.document.write("<br>")
