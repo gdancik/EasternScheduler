@@ -3,7 +3,7 @@
 ## Installation ##
 1. A development version of Eastern Scheduler is currently available. Download the zip file from the following link: 
 [https://github.com/gdancik/EasternScheduler/archive/master.zip](https://github.com/gdancik/EasternScheduler/archive/master.zip)
-2. Extract the file. This will create an Eastern Scheduler folder.
+2. Extract the file. This will create an EasternScheduler-master folder.
 3. Open the Extension Management page by navigating to chrome://extensions. Enable Developer Mode by clicking the toggle switch next to Developer mode. Click the LOAD UNPACKED button and select the extension directory.
 
 ## Using the Scheduler ##
