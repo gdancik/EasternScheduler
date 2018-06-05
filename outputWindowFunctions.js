@@ -1,17 +1,17 @@
 
-// outputs courses found to the new window
+// outputs Courses Found table to newWindow
 function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
 
+    // output headers
 	newWindow.document.write("<h1> Courses Found </h1>");
 	newWindow.document.write("<table>");
+	newWindow.document.write("<tr>");
 	newWindow.document.write("<th>CRN</th>");
 	newWindow.document.write("<th>Subj</th>");
 	newWindow.document.write("<th>Crse</th>");
 	newWindow.document.write("<th>Instructor</th>");
-	
 	newWindow.document.write("<th>Days</th>");
 	newWindow.document.write("<th>Time</th>");
-	
 	newWindow.document.write("</tr>");
 
 
@@ -20,14 +20,14 @@ function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
 	
     	// add a 'blank' line between courses
     	if (i> 0 && (COURSES[i].Subj != COURSES[i-1].Subj || COURSES[i].Crse != COURSES[i-1].Crse)) {
-        	newWindow.document.write("<tr style = 'background-color: black'><td colspan=5> </td></tr>");
+        	newWindow.document.write("<tr style = 'background-color: black'><td colspan=6 style='padding:2'> </td></tr>");
     	}
 
 		writeCourse(newWindow, COURSES[i], i)
 	}
 	
 	newWindow.document.write("</table>");
-	newWindow.document.write("<br/><br/>");
+	newWindow.document.write("<br/>");
 }
 
 
@@ -71,13 +71,11 @@ function writeCourse(newWindow, c, i) {
 // outputs a single schedule to the window
 function printSchedule(newWindow, scheduleNum, schedule1) {
 
+
+        // old code for 'early' tables
+        /*
 		var early = tooEarly(schedule1);
 		
-        
-		
-        // TO DO: fix border to only show 1 line by adding
-        // style="border-collapse:collapse" in table tag;
-
 		if (early) {
 			newWindow.document.write("<div class = 'earlyDiv'>");
 		} else {		
@@ -88,16 +86,20 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
         if (early) {
             className = "earlyTable";
         }
-
+        
         	newWindow.document.write("<h3 style = 'display:inline;'>Schedule " + scheduleNum + "</h3>");       
 			newWindow.document.write("<table border = 1 style='border-collapse:collapse' width='60%' class = \"" + className + "\">");
-		
-        // TO DO: output heading, CRN, Subj, Crse
+	*********************/
+        	
+        newWindow.document.write("<h3 style = 'display:inline;'>Schedule " + scheduleNum + "</h3>");       
+		newWindow.document.write("<table border = 1 style='border-collapse:collapse' width='70%'>");
+
+        //  output heading, CRN, Subj, Crse
         newWindow.document.write("<tr>")
-        newWindow.document.write("<th width = '10%'>CRN</th>")
+        newWindow.document.write("<th width = '5%'>CRN</th>")
         newWindow.document.write("<th width = '10%'>Subject</th>")
-        newWindow.document.write("<th width = '10%'>Course Number</th>")
-		newWindow.document.write("<th width = '10%'>Instructor</th>")
+        newWindow.document.write("<th width = '10%'>Crse</th>")
+		newWindow.document.write("<th width = '15%'>Instructor</th>")
 		
         newWindow.document.write("<th width = '10%'>Day</th>");
         newWindow.document.write("<th width = '20%'>Time</th>");

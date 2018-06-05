@@ -1,8 +1,6 @@
-// This script highlights all occurences of 'qry'. The variable 'qry' should
-// be set before calling this script
-
-// TO DO: extract CRN add to Course object; modify code to work 
-// for courses offered multiple times over different days
+// This script identifies valid schedules based on 'qry', which is
+// a list of courses, e.g., CSC 210, MAT 243, etc. The variable 'qry' is  
+// set by popup.js before calling this script
 
 alert("in schedule.js");
 
@@ -87,12 +85,10 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 } // end  outer for loop
 
 
-console.log("COURSES FOUND: " + COURSE_NUM);
+console.log("NUMBER OF COURSES FOUND: " + COURSE_NUM);
 
 
-
-
-// create new window and output the results
+// create new window to output the courses found and possible schedules
 
 var newWindow = window.open("", null);
 newWindow.document.write("<head>");
@@ -102,37 +98,42 @@ newWindow.document.write(".evenRow {\n");
 newWindow.document.write("  background-color:lightgray;\n");
 newWindow.document.write("}\n");
 
-newWindow.document.write(".earlyTable {\n");
-newWindow.document.write("  background-color:lightcoral;\n");
+newWindow.document.write("td {\n");
+newWindow.document.write("  text-align:center;\n");
 newWindow.document.write("}\n");
 
-newWindow.document.write(".noearlyTable {\n");
-newWindow.document.write("  background-color:lightyellow;\n");
-newWindow.document.write("}\n");
+
+// old styles for 'early' tables
+//newWindow.document.write(".earlyTable {\n");
+//newWindow.document.write("  background-color:lightcoral;\n");
+//newWindow.document.write("}\n");
+
+//newWindow.document.write(".noearlyTable {\n");
+//newWindow.document.write("  background-color:lightyellow;\n");
+//newWindow.document.write("}\n");
 
 
 newWindow.document.write("</style>");
-
 newWindow.document.write("</head>");
 
 newWindow.document.write("<div id = \"body\">");
 newWindow.document.write("</div>");
 
+// display table showing the courses that were found
 printCoursesFound(newWindow, COURSES, COURSE_NUM);
 
 
 // output available schedules
-
 newWindow.document.write("<h1> Available Schedules </h1>");
 
 //newWindow.document.write('<script src="schedule.js"></script>')
 
 
-//newWindow.document.write('<button type="button" onclick="myClick()" id="b1"> Click me to hide the early schedule</button>')
-
-newWindow.document.write("<button onclick='myClick()' id='b1'> Click me to hide schedules with courses that start before 9:00 am</button>")
+//newWindow.document.write("<button onclick='myClick()' id='b1'> Click me to hide schedules with courses that start before 9:00 am</button>")
 
 
+
+// old code -- used to handle toggle between show/hide early classes
 var f = "earlyCount = 1;\n" + 
   "function myClick() {\n" +
 
@@ -156,18 +157,14 @@ var f = "earlyCount = 1;\n" +
 "};";
 
 
-
-
+   // add javascript code to new window
    var newScript = document.createElement("script");
    var inlineScript = document.createTextNode(f);
    newScript.appendChild(inlineScript); 
    newWindow.document.getElementById("body").appendChild(newScript);
 
 
-newWindow.document.write("<br>")
-
-newWindow.document.write("<br>")
-
+//newWindow.document.write("<br>")
 
 // output course information to console
 console.log("");
@@ -207,13 +204,14 @@ for (i = 0; i < combs.length; i++) {
 	// if schedule is good, print it
     if (!anyConflicts(schedule1)) {
        	console.log("Possible Schedule: ")
-       	printCourses(schedule1);
+       	printCourses(schedule1); // print to console
        	scheduleNum++;
        	console.log("");
-       	printSchedule(newWindow, scheduleNum, schedule1);        
+        // print schedule to window
+       	printSchedule(newWindow, scheduleNum, schedule1);     
     } else {
        console.log("CONFLICT FOUND ")
-       printCourses(schedule1);
+       printCourses(schedule1); // print to console
        console.log(""); 
     } 
 }
