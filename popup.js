@@ -1,4 +1,4 @@
-function hello(input) {
+function findSchedules(input) {
     window.close();
     codeString = "var qry = \"" + input.value + "\";";
     //codeString = "qry=3;";
@@ -8,9 +8,9 @@ function hello(input) {
     chrome.tabs.executeScript(null, {file: "schedule.js"});
 }
 
-// Add listener for button click, which calls 'hello'
+// Add listener for button click, which calls 'findSchedules'
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById("btnHighlight").addEventListener("click", 
-        function() {hello(document.getElementById('searchString'));})
+    document.getElementById("btnFindSchedules").addEventListener("click", 
+        function() {findSchedules(document.getElementById('searchString'));})
 });
 
