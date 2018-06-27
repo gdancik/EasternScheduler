@@ -98,6 +98,16 @@ newWindow.document.write(".evenRow {\n");
 newWindow.document.write("  background-color:lightgray;\n");
 newWindow.document.write("}\n");
 
+newWindow.document.write("tr.exclude {\n");
+newWindow.document.write("  background-color:red;\n");
+newWindow.document.write("	opacity: 0.6;\n");
+newWindow.document.write("}\n");
+
+newWindow.document.write("tr.include {\n");
+newWindow.document.write("  background-color:lightgreen;\n");
+newWindow.document.write("	opacity: 1.0;\n");
+newWindow.document.write("}\n");
+
 newWindow.document.write("td {\n");
 newWindow.document.write("  text-align:center;\n");
 newWindow.document.write("}\n");
@@ -134,6 +144,7 @@ newWindow.document.write("<h1> Available Schedules </h1>");
 
 
 // old code -- used to handle toggle between show/hide early classes
+/*
 var f = "earlyCount = 1;\n" + 
   "function myClick() {\n" +
 
@@ -155,13 +166,22 @@ var f = "earlyCount = 1;\n" +
        "document.getElementById('b1').innerText = 'Click me to hide schedules with courses before 9:00am';\n" +
      "}" +
 "};";
+*/
 
 
-   // add javascript code to new window
+//alert("attaching function:\n" + f);
+
+   // NOTE: ALL javascript functions running on newWindow must be appended here,
+   // in the example, 'f' is the name of a function in toggleSchedules.js
    var newScript = document.createElement("script");
-   var inlineScript = document.createTextNode(f);
+   var inlineScript = document.createTextNode(f.toString());
    newScript.appendChild(inlineScript); 
    newWindow.document.getElementById("body").appendChild(newScript);
+
+
+
+   
+   
 
 
 //newWindow.document.write("<br>")
