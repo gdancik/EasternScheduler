@@ -56,7 +56,7 @@ function writeCourse(newWindow, c, i) {
 		if (r == 0) { // print out first row for course
 		
 			newWindow.document.write("<td>");
-			newWindow.document.write("<select id='mySelect"+COURSES[i].CRN+"' onchange='dropDownChange()'>");
+			newWindow.document.write("<select id='mySelect"+COURSES[i].CRN+"' onchange='dropDownChange(this.id)'>");
 			newWindow.document.write("<option value='No selection'>No selection</option>");
 			newWindow.document.write("<option value='Include'>Include</option>");
 			newWindow.document.write("<option value='Exclude'>Exclude</option>");
@@ -142,8 +142,4 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
     	newWindow.document.write("</div>");        
         newWindow.document.write("<br>");     
        
-}
-
-function dropDownChange(){
-	alert("test: in dropDownChange()");
 }

@@ -2,7 +2,7 @@
 // a list of courses, e.g., CSC 210, MAT 243, etc. The variable 'qry' is  
 // set by popup.js before calling this script
 
-alert("in schedule.js");
+//alert("in schedule.js");
 
 if (typeof(qry) == "undefined") {
     alert("Error: qry is not set");
@@ -173,14 +173,16 @@ var f = "earlyCount = 1;\n" +
 
    // NOTE: ALL javascript functions running on newWindow must be appended here,
    // in the example, 'f' is the name of a function in toggleSchedules.js
-   var newScript = document.createElement("script");
-   var inlineScript = document.createTextNode(f.toString());
-   newScript.appendChild(inlineScript); 
-   newWindow.document.getElementById("body").appendChild(newScript);
-
-
-
+	var newScript = document.createElement("script");
+	var inlineScript = document.createTextNode(f.toString());
+	newScript.appendChild(inlineScript); 
+	newWindow.document.getElementById("body").appendChild(newScript);
    
+   //Adding dropDownChange function (f2)
+   	var newScript = document.createElement("script");
+	var inlineScript = document.createTextNode(f2.toString());
+	newScript.appendChild(inlineScript); 
+	newWindow.document.getElementById("body").appendChild(newScript);
    
 
 
