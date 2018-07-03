@@ -9,9 +9,9 @@ f = function resetSelection() {
         var className = row.className;
         
         if (className.indexOf("evenRow") >= 0) {
-        	className = "evenRow noselection";
+        	className = "evenRow";
         } else {
-        	className = "noselection"
+        	className = "oddRow"
         }
         
         row.className = className; 
@@ -77,4 +77,41 @@ f2 = function dropDownChange(value) {
 			document.getElementById(rowid).className = "oddRow";
 		}
 	}
+	
+	toggleAllSchedules(value);
+}
+
+f3 = function toggleAllSchedules(value) {
+	alert("In toggleAllSchedules");
+	var crnArray = [];
+    var allTables = document.getElementsByTagName("table");
+    var firstTable = allTables[0];
+    for (var i = 1; i < firstTable.rows.length; i++) {
+    	var x = document.getElementById(value).value;
+		var rowid = value.replace("mySelect", "row"); 
+	    var x = document.getElementById(rowid).value;
+	    if (x === "Exclude") {
+	        crnArray.push(firstTable.rows[i].cells[1].innerHTML);
+	    }        
+    }
+    for (var i = 1; i < allTables.length; i++) {
+        toggleSchedule(allTables[i], crnArray);
+    }
+}
+
+f4 = function toggleSchedule(table, crnArray) {
+	alert("In toggleSchedule");
+	divs = document.getElementByTagName('div');  //Error here
+	alert("Test");
+    for (var i = 1; i < table.rows.length; i++) {
+        var row = table.rows[i];
+        var crn = row.cells[0].innerHTML;
+        for (var j = 0; j < crnArray.length; j++) {
+            if (crn === crnArray[j]) {
+                divs[i].style.display = 'none';
+                return;
+            }
+        }
+        divs[i].style.display = 'block';
+    }       
 }

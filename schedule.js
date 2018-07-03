@@ -183,6 +183,18 @@ var f = "earlyCount = 1;\n" +
 	var inlineScript = document.createTextNode(f2.toString());
 	newScript.appendChild(inlineScript); 
 	newWindow.document.getElementById("body").appendChild(newScript);
+	
+	//Adding toggleAllSchedules function (f3)
+   	var newScript = document.createElement("script");
+	var inlineScript = document.createTextNode(f3.toString());
+	newScript.appendChild(inlineScript); 
+	newWindow.document.getElementById("body").appendChild(newScript);
+	
+	//Adding toggleSchedule function (f4)
+   	var newScript = document.createElement("script");
+	var inlineScript = document.createTextNode(f4.toString());
+	newScript.appendChild(inlineScript); 
+	newWindow.document.getElementById("body").appendChild(newScript);
    
 
 
