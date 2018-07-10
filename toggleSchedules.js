@@ -82,16 +82,17 @@ f2 = function dropDownChange(value) {
 }
 
 f3 = function toggleAllSchedules(value) {
-	alert("In toggleAllSchedules");
 	var crnArray = [];
     var allTables = document.getElementsByTagName("table");
     var firstTable = allTables[0];
     for (var i = 1; i < firstTable.rows.length; i++) {
-    	var x = document.getElementById(value).value;
-		var rowid = value.replace("mySelect", "row"); 
-	    var x = document.getElementById(rowid).value;
-	    if (x === "Exclude") {
+    	var row = firstTable.rows[i];
+    	var dropDown = row.cells[0].children[0]; //.value?
+    	alert("dropDown: " + dropDown);
+	    if (dropDown === "Exclude") {
+	    	alert("dropDown: " + dropDown);
 	        crnArray.push(firstTable.rows[i].cells[1].innerHTML);
+	        alert("crnArray: " + crnArray);
 	    }        
     }
     for (var i = 1; i < allTables.length; i++) {
@@ -100,18 +101,18 @@ f3 = function toggleAllSchedules(value) {
 }
 
 f4 = function toggleSchedule(table, crnArray) {
-	alert("In toggleSchedule");
-	divs = document.getElementByTagName('div');  //Error here
-	alert("Test");
+	alert("in toggleSchedule");
+	divs = document.getElementsByTagName('div');
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
         var crn = row.cells[0].innerHTML;
         for (var j = 0; j < crnArray.length; j++) {
             if (crn === crnArray[j]) {
+            	alert("test");
                 divs[i].style.display = 'none';
                 return;
             }
         }
-        divs[i].style.display = 'block';
+        //divs[i].style.display = 'block';
     }       
 }
