@@ -24,7 +24,12 @@ f = function resetSelection() {
     	}
     
         dropdown.value = "No selection";
-        dropdown.disabled = false;                        
+        dropdown.disabled = false;       
+        
+        //showing all tables
+        //for(var i = 1; i < tables.length; i ++) {
+        	//divs[i].style.display = 'block';
+        //}                 
     }
 }
 
@@ -87,32 +92,34 @@ f3 = function toggleAllSchedules(value) {
     var firstTable = allTables[0];
     for (var i = 1; i < firstTable.rows.length; i++) {
     	var row = firstTable.rows[i];
-    	var dropDown = row.cells[0].children[0]; //.value?
-    	alert("dropDown: " + dropDown);
-	    if (dropDown === "Exclude") {
-	    	alert("dropDown: " + dropDown);
-	        crnArray.push(firstTable.rows[i].cells[1].innerHTML);
-	        alert("crnArray: " + crnArray);
+    	var dropDown = row.cells[0].children[0];
+	    if (dropDown != undefined) {
+	    	dropDown = row.cells[0].children[0].value;
+	    	if (dropDown === "Exclude") {
+	        	crnArray.push(firstTable.rows[i].cells[1].innerHTML);
+	        	alert("crnArray: " + crnArray);
+	    	}
 	    }        
     }
-    for (var i = 1; i < allTables.length; i++) {
-        toggleSchedule(allTables[i], crnArray);
+    for (var x = 1; x < allTables.length; x++) {
+    	//alert("table: " + x);
+        toggleSchedule(allTables[x], x, crnArray);
     }
 }
 
-f4 = function toggleSchedule(table, crnArray) {
-	alert("in toggleSchedule");
+f4 = function toggleSchedule(table, table_ind, crnArray) {
+	//alert("in toggleSchedule");
 	divs = document.getElementsByTagName('div');
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
         var crn = row.cells[0].innerHTML;
+        //alert("i: " + i + "\ncrn: " + crn);
         for (var j = 0; j < crnArray.length; j++) {
             if (crn === crnArray[j]) {
-            	alert("test");
-                divs[i].style.display = 'none';
-                return;
+            	alert("Match found in crn\n i: "  + i);
+                divs[table_ind].style.display = 'none';
             }
         }
-        //divs[i].style.display = 'block';
+        //divs[table_ind].style.display = 'block';
     }       
 }
