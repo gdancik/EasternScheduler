@@ -27,6 +27,7 @@ f = function resetSelection() {
         dropdown.disabled = false;       
         
         //showing all tables
+        //for some reason when this for loop is run, the whole extension seems to crash
         //for(var i = 1; i < tables.length; i ++) {
         	//divs[i].style.display = 'block';
         //}                 
@@ -51,6 +52,9 @@ f2 = function dropDownChange(value) {
 		else if (rowClass === "oddRow exclude") {
 			document.getElementById(rowid).className = "oddRow include";
 		}
+		
+		styleOtherCourses(rowid, "include", value);
+		
 	}
 	if (x === "Exclude") {
 		var rowClass = document.getElementById(rowid).className;
@@ -66,6 +70,9 @@ f2 = function dropDownChange(value) {
 		else if (rowClass === "oddRow include") {
 			document.getElementById(rowid).className = "oddRow exclude";
 		}
+		
+		styleOtherCourses(rowid, "exclude", value);
+		
 	}
 	if (x === "No selection") {
 		var rowClass = document.getElementById(rowid).className;
@@ -81,6 +88,9 @@ f2 = function dropDownChange(value) {
 		else if (rowClass === "oddRow exclude") {
 			document.getElementById(rowid).className = "oddRow";
 		}
+		
+		styleOtherCourses(rowid, "no selection", value);
+		
 	}
 	
 	toggleAllSchedules(value);
@@ -118,8 +128,57 @@ f4 = function toggleSchedule(table, table_ind, crnArray) {
             if (crn === crnArray[j]) {
             	alert("Match found in crn\n i: "  + i);
                 divs[table_ind].style.display = 'none';
+                return;
             }
         }
-        //divs[table_ind].style.display = 'block';
+        divs[table_ind].style.display = 'block';
     }       
 }
+
+f5 = function styleOtherCourses(rowId, selectedType, value) {
+	alert("in styleOtherCourses");
+	var row = document.getElementById(rowId)
+    var selectedCourse = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
+    var allTables = document.getElementsByTagName("table");
+    var firstTable = allTables[0];
+    for (var i = 1; i < firstTable.rows.length; i++) {
+        row = firstTable.rows[i];
+        var dropDown = row.cells[0].children[0];
+        // get the course (e.g., CSC-210)
+        
+        //alerts 1 and 2 to show where/when the error occurs
+        alert("1");
+        if (dropDown != undefined) {
+        	var course = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
+        }
+        alert("2");
+        
+        // if this course matches the selected course (and has a different
+        // row id)
+        if (selectedCourse == course && row.id != rowId) {
+            // get id of corresponding dropdown (this works because ids are
+            // of the form "mySelect#" where # is the crn
+            var crn = row.cells[1].innerHTML;
+            var selectId = "mySelect" + crn;
+            // if user has included a course, exclude and disable the others
+            if (selectedType === "include" && document.getElementById(row.id).className === "evenRow include") {
+                document.getElementById(row.id).className = "evenRow exclude";
+                document.getElementById(value).value = "Exclude";
+                document.getElementById(value).disabled = true;
+            } 
+            else if (selectedType === "include" && document.getElementById(row.id).className === "oddRow include") {
+            	document.getElementById(row.id).className = "oddRow exclude";
+                document.getElementById(value).value = "Exclude";
+                document.getElementById(value).disabled = true;
+            }
+            else { // otherwise, just enable the drop downs
+                document.getElementById(value).disabled = false;
+            }
+        }
+    }  
+}
+
+
+
+
+

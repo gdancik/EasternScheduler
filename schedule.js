@@ -196,7 +196,12 @@ var f = "earlyCount = 1;\n" +
 	newScript.appendChild(inlineScript); 
 	newWindow.document.getElementById("body").appendChild(newScript);
    
-
+	//Adding toggleSchedule function (f4)
+   	var newScript = document.createElement("script");
+	var inlineScript = document.createTextNode(f5.toString());
+	newScript.appendChild(inlineScript); 
+	newWindow.document.getElementById("body").appendChild(newScript);
+   
 
 //newWindow.document.write("<br>")
 
