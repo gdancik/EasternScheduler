@@ -1,3 +1,53 @@
+f0 = function highlightConflicts() {
+    // TO DO: get row ids for courses that are not in any schedule
+	var tables = document.getElementsByTagName("table");
+    var t1 = tables[0];
+    var bool = true;
+    var rowIdArray = [];
+    for (var i = 1; i < t1.rows.length; i++) {				//check first table
+    	var row = t1.rows[i];
+    	var dropDown = row.cells[0].children[0];
+    	if (dropDown != undefined) {
+    		var crn = row.cells[1].innerHTML;
+    	}
+    	
+    	for (var j = 1; j < tables.length; j++) {			//check all schedules
+    		for (var k = 1; k < tables.length; k++) {		//check row of each schedule
+    			var table = tables[j];
+    			var scheduleRow = table.rows[k];
+    			if (scheduleRow != undefined) {
+    				var scheduleCrn = scheduleRow.cells[0].innerHTML;  
+    			}
+    			if (crn === scheduleCrn) {
+    				bool = false;
+    			}  		
+    		}
+    	}
+    	if (bool === true) {	//crn not found in any schedules
+    		var rowId = "row" + crn;
+    		rowIdArray.push(rowId);
+    		alert("rowIdArray: " + rowIdArray);
+    	}
+    }
+	
+	
+    // TO DO: for each row id, replace dropdown with CONFLICT and set className to exlcude
+    // (an example for "row10206" is below)
+    
+    //row = document.getElementById("row10206");
+    //row = document.getElementById("row10627");
+    //row.cells[0].innerHTML = "<td>CONFLICT</td>";
+    //row.className = "exclude";
+		
+	for (var i = 0; i < rowIdArray; i++) {
+		var row = document.getElementById(rowIdArray[i]);
+		row.cells[0].innerHTML = "<td>CONFLICT</td>";
+		row.className = "exclude";
+	}
+	
+    formatMultiRowCourses();
+}
+
 f = function resetSelection() {
 	var tables = document.getElementsByTagName("table");
     var t1 = tables[0];
@@ -8,9 +58,13 @@ f = function resetSelection() {
         //var className = document.getElementById(row.id).className;
         var className = row.className;
         
-        if (className.indexOf("evenRow") >= 0) {
+        if (className === "exclude") {
+        	//do nothing
+        }
+        else if (className.indexOf("evenRow") >= 0) {
         	className = "evenRow";
-        } else {
+        } 
+        else {
         	className = "oddRow"
         }
         
@@ -29,10 +83,11 @@ f = function resetSelection() {
 	}
 	        
         //showing all tables
-        //for some reason when this for loop is run, the whole extension seems to crash
         for(var i = 1; i < tables.length; i ++) {
         	divs[i].style.display = 'block';
         }
+
+        formatMultiRowCourses()
 }
 
 f2 = function dropDownChange(value) {
@@ -97,7 +152,8 @@ f2 = function dropDownChange(value) {
 		checkExclusions(value, rowid, "no selection");
 		
 	}
-	
+
+    formatMultiRowCourses();
 	toggleAllSchedules(value);
 }
 
@@ -161,6 +217,7 @@ f5 = function styleOtherCourses(rowId, selectedType) {
             // of the form "mySelect#" where # is the crn
             var crn = row.cells[1].innerHTML;
             var selectId = "mySelect" + crn;
+            //alert("exclude " + selectId +"\nclass: " + document.getElementById(row.id).className);
             //alert("selectId: " + selectId);
             // if user has included a course, exclude and disable the others
             if (selectedType === "include" && document.getElementById(row.id).className === "evenRow include") {
@@ -182,8 +239,9 @@ f5 = function styleOtherCourses(rowId, selectedType) {
             	document.getElementById(row.id).className = "oddRow exclude";
                 document.getElementById(selectId).value = "Exclude";
                 document.getElementById(selectId).disabled = true;
-            }
-            else { // otherwise, just enable the drop downs
+            } else if (selectedType === "include") {
+                document.getElementById(selectId).disabled = true;
+            } else { // otherwise, just enable the drop downs
                 document.getElementById(selectId).disabled = false;
             }
         }
@@ -196,31 +254,29 @@ f6 = function checkExclusions(value, rowId, selectedType) {
     var firstTable = allTables[0];
 	var row = document.getElementById(rowId);
     var selectedCourse = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
-    var bool = true;
+    var AllExcluded = true;
     var selectId = rowId;
     selectId = rowId.replace("row", "mySelect");
     if (x === "Include" || x === "No selection") {
     	//No possibility of incorrect exclusions
     }
     else if (x === "Exclude") {
+
     	for (var i = 1; i < firstTable.rows.length; i++) {
     		row = firstTable.rows[i];
     		var dropDown = row.cells[0].children[0];
     		if (dropDown != undefined) {
     			var course = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
-    		}
+    		} else {
+                continue;
+            }
     		if (selectedCourse === course && row.id != rowId) {
-    			if (dropDown != undefined) {
-    				if (dropDown.value === "Exclude") {
-    					bool = true;
-    				}
-    				else if (dropDown.value === "Include" || dropDown.value === "No selection") {
-    					bool = false;
-    				}
+    			if (dropDown.value === "Include" || dropDown.value === "No selection") {
+    				AllExcluded = false;
     			}
     		}
     	}
-    	if (bool === true) {
+    	if (AllExcluded === true) {
     		alert("All sections of a course may not be excluded");
     		document.getElementById(selectId).value = "No selection";
     		if (document.getElementById(rowId).className === "oddRow exclude") {
@@ -233,6 +289,18 @@ f6 = function checkExclusions(value, rowId, selectedType) {
     }
 }
 
+// in 2nd row of multi-row courses, set format of last 2 cells to format of previous row
+// this is based on the fact that both rows have the same ID
+f7 = function formatMultiRowCourses() {
+    table = document.getElementsByTagName("table")[0];
+    for (var i = 1; i < table.rows.length; i++) {
+        row = table.rows[i];
+        var row0 = table.rows[i-1];
 
-
-
+        if (row.id == row0.id) {
+            var n = row.cells.length-1;
+            row.cells[n].className = row0.className;
+            row.cells[n-1].className = row0.className;
+        }
+    }
+}
