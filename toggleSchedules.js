@@ -1,3 +1,16 @@
+
+f0 = function highlightConflicts() {
+
+    // TO DO: get row ids for courses that are not in any schedule
+
+    // TO DO: for each row id, replace dropdown with CONFLICT and set className to exlcude
+    // (an example for "row10206" is below
+    row = document.getElementById("row10206");
+    row.cells[0].innerHTML = "<td>CONFLICT</td>";
+    row.className = "exclude";
+    
+}
+
 f = function resetSelection() {
 	var tables = document.getElementsByTagName("table");
     var t1 = tables[0];

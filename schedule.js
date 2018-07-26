@@ -91,6 +91,7 @@ console.log("NUMBER OF COURSES FOUND: " + COURSE_NUM);
 // create new window to output the courses found and possible schedules
 
 var newWindow = window.open("", null);
+newWindow.document.write("<html>");
 newWindow.document.write("<head>");
 newWindow.document.write("<style>");
 
@@ -207,7 +208,14 @@ var f = "earlyCount = 1;\n" +
 	var inlineScript = document.createTextNode(f6.toString());
 	newScript.appendChild(inlineScript); 
 	newWindow.document.getElementById("body").appendChild(newScript);
-   
+  
+	//Adding toggleSchedule function (f0)
+   	var newScript = document.createElement("script");
+	var inlineScript = document.createTextNode(f0.toString());
+	newScript.appendChild(inlineScript); 
+	newWindow.document.getElementById("body").appendChild(newScript);
+
+
 
 //newWindow.document.write("<br>")
 
@@ -261,4 +269,5 @@ for (i = 0; i < combs.length; i++) {
     } 
 }
 
+newWindow.document.write("<script type ='text/javascript'>\nhighlightConflicts();\n</script>");
 
