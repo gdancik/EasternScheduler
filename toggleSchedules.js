@@ -1,4 +1,3 @@
-
 f0 = function highlightConflicts() {
 
     // TO DO: get row ids for courses that are not in any schedule
@@ -8,7 +7,8 @@ f0 = function highlightConflicts() {
     row = document.getElementById("row10206");
     row.cells[0].innerHTML = "<td>CONFLICT</td>";
     row.className = "exclude";
-    
+
+    formatMultiRowCourses();
 }
 
 f = function resetSelection() {
@@ -46,6 +46,8 @@ f = function resetSelection() {
         for(var i = 1; i < tables.length; i ++) {
         	divs[i].style.display = 'block';
         }
+
+        formatMultiRowCourses()
 }
 
 f2 = function dropDownChange(value) {
@@ -110,7 +112,8 @@ f2 = function dropDownChange(value) {
 		checkExclusions(value, rowid, "no selection");
 		
 	}
-	
+
+    formatMultiRowCourses();
 	toggleAllSchedules(value);
 }
 
@@ -174,6 +177,7 @@ f5 = function styleOtherCourses(rowId, selectedType) {
             // of the form "mySelect#" where # is the crn
             var crn = row.cells[1].innerHTML;
             var selectId = "mySelect" + crn;
+            //alert("exclude " + selectId +"\nclass: " + document.getElementById(row.id).className);
             //alert("selectId: " + selectId);
             // if user has included a course, exclude and disable the others
             if (selectedType === "include" && document.getElementById(row.id).className === "evenRow include") {
@@ -195,8 +199,9 @@ f5 = function styleOtherCourses(rowId, selectedType) {
             	document.getElementById(row.id).className = "oddRow exclude";
                 document.getElementById(selectId).value = "Exclude";
                 document.getElementById(selectId).disabled = true;
-            }
-            else { // otherwise, just enable the drop downs
+            } else if (selectedType === "include") {
+                document.getElementById(selectId).disabled = true;
+            } else { // otherwise, just enable the drop downs
                 document.getElementById(selectId).disabled = false;
             }
         }
@@ -244,6 +249,20 @@ f6 = function checkExclusions(value, rowId, selectedType) {
     }
 }
 
+// in 2nd row of multi-row courses, set format of last 2 cells to format of previous row
+// this is based on the fact that both rows have the same ID
+f7 = function formatMultiRowCourses() {
+    table = document.getElementsByTagName("table")[0];
+    for (var i = 1; i < table.rows.length; i++) {
+        row = table.rows[i];
+        var row0 = table.rows[i-1];
 
+        if (row.id == row0.id) {
+            var n = row.cells.length-1;
+            row.cells[n].className = row0.className;
+            row.cells[n-1].className = row0.className;
+        }
+    }
+}
 
 

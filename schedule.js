@@ -99,12 +99,12 @@ newWindow.document.write(".evenRow {\n");
 newWindow.document.write("  background-color:lightgray;\n");
 newWindow.document.write("}\n");
 
-newWindow.document.write("tr.exclude {\n");
+newWindow.document.write("tr.exclude, td.exclude {\n");
 newWindow.document.write("  background-color:red;\n");
 newWindow.document.write("	opacity: 0.6;\n");
 newWindow.document.write("}\n");
 
-newWindow.document.write("tr.include {\n");
+newWindow.document.write("tr.include, td.include {\n");
 newWindow.document.write("  background-color:lightgreen;\n");
 newWindow.document.write("	opacity: 1.0;\n");
 newWindow.document.write("}\n");
@@ -172,49 +172,26 @@ var f = "earlyCount = 1;\n" +
 
 //alert("attaching function:\n" + f);
 
+   
+
    // NOTE: ALL javascript functions running on newWindow must be appended here,
    // in the example, 'f' is the name of a function in toggleSchedules.js
-	var newScript = document.createElement("script");
-	var inlineScript = document.createTextNode(f.toString());
-	newScript.appendChild(inlineScript); 
-	newWindow.document.getElementById("body").appendChild(newScript);
-   
-   //Adding dropDownChange function (f2)
-   	var newScript = document.createElement("script");
-	var inlineScript = document.createTextNode(f2.toString());
-	newScript.appendChild(inlineScript); 
-	newWindow.document.getElementById("body").appendChild(newScript);
-	
-	//Adding toggleAllSchedules function (f3)
-   	var newScript = document.createElement("script");
-	var inlineScript = document.createTextNode(f3.toString());
-	newScript.appendChild(inlineScript); 
-	newWindow.document.getElementById("body").appendChild(newScript);
-	
-	//Adding toggleSchedule function (f4)
-   	var newScript = document.createElement("script");
-	var inlineScript = document.createTextNode(f4.toString());
-	newScript.appendChild(inlineScript); 
-	newWindow.document.getElementById("body").appendChild(newScript);
-   
-	//Adding toggleSchedule function (f5)
-   	var newScript = document.createElement("script");
-	var inlineScript = document.createTextNode(f5.toString());
-	newScript.appendChild(inlineScript); 
-	newWindow.document.getElementById("body").appendChild(newScript);
-	
-	//Adding toggleSchedule function (f6)
-   	var newScript = document.createElement("script");
-	var inlineScript = document.createTextNode(f6.toString());
-	newScript.appendChild(inlineScript); 
-	newWindow.document.getElementById("body").appendChild(newScript);
-  
-	//Adding toggleSchedule function (f0)
-   	var newScript = document.createElement("script");
-	var inlineScript = document.createTextNode(f0.toString());
-	newScript.appendChild(inlineScript); 
-	newWindow.document.getElementById("body").appendChild(newScript);
 
+    function attachFunction(f, newWindow) {
+        var newScript = document.createElement("script");
+	    var inlineScript = document.createTextNode(f.toString());
+	    newScript.appendChild(inlineScript); 
+	    newWindow.document.getElementById("body").appendChild(newScript);
+    }
+
+    attachFunction(f0, newWindow);
+    attachFunction(f, newWindow);
+    attachFunction(f2, newWindow);
+    attachFunction(f3, newWindow);
+    attachFunction(f4, newWindow);
+    attachFunction(f5, newWindow);
+    attachFunction(f6, newWindow);
+    attachFunction(f7, newWindow);
 
 
 //newWindow.document.write("<br>")
