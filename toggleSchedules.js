@@ -196,31 +196,29 @@ f6 = function checkExclusions(value, rowId, selectedType) {
     var firstTable = allTables[0];
 	var row = document.getElementById(rowId);
     var selectedCourse = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
-    var bool = true;
+    var AllExcluded = true;
     var selectId = rowId;
     selectId = rowId.replace("row", "mySelect");
     if (x === "Include" || x === "No selection") {
     	//No possibility of incorrect exclusions
     }
     else if (x === "Exclude") {
+
     	for (var i = 1; i < firstTable.rows.length; i++) {
     		row = firstTable.rows[i];
     		var dropDown = row.cells[0].children[0];
     		if (dropDown != undefined) {
     			var course = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
-    		}
+    		} else {
+                continue;
+            }
     		if (selectedCourse === course && row.id != rowId) {
-    			if (dropDown != undefined) {
-    				if (dropDown.value === "Exclude") {
-    					bool = true;
-    				}
-    				else if (dropDown.value === "Include" || dropDown.value === "No selection") {
-    					bool = false;
-    				}
+    			if (dropDown.value === "Include" || dropDown.value === "No selection") {
+    				AllExcluded = false;
     			}
     		}
     	}
-    	if (bool === true) {
+    	if (AllExcluded === true) {
     		alert("All sections of a course may not be excluded");
     		document.getElementById(selectId).value = "No selection";
     		if (document.getElementById(rowId).className === "oddRow exclude") {
