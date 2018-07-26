@@ -4,8 +4,13 @@ function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
 
     // output headers
 	newWindow.document.write("<h1> Courses Found </h1>");
+
+	newWindow.document.write("<button onclick='resetSelection();'>Reset</button>")
+
+
 	newWindow.document.write("<table>");
 	newWindow.document.write("<tr>");
+	newWindow.document.write("<th>Selection</th>");
 	newWindow.document.write("<th>CRN</th>");
 	newWindow.document.write("<th>Subj</th>");
 	newWindow.document.write("<th>Crse</th>");
@@ -20,7 +25,7 @@ function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
 	
     	// add a 'blank' line between courses
     	if (i> 0 && (COURSES[i].Subj != COURSES[i-1].Subj || COURSES[i].Crse != COURSES[i-1].Crse)) {
-        	newWindow.document.write("<tr style = 'background-color: black'><td colspan=6 style='padding:2'> </td></tr>");
+        	newWindow.document.write("<tr style = 'background-color: black'><td colspan=7 style='padding:2'> </td></tr>");
     	}
 
 		writeCourse(newWindow, COURSES[i], i)
@@ -31,28 +36,38 @@ function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
 }
 
 
-
-
 // write course information -- used to output list of all courses
 function writeCourse(newWindow, c, i) {
 
 	for (var r = 0; r < c.strDays.length; r++) {
 
+		//newWindow.document.write("<td> Selection here </td>");
+
 		//This will alternate the color of the table rows for easier readability
 		if (i % 2 == 0){
-			newWindow.document.write("<tr class=\"evenRow\">");
+			newWindow.document.write("<tr class=\"evenRow\" id= row"+COURSES[i].CRN+">");
 		} else {
-			newWindow.document.write("<tr class=\"oddRow\">");
+			newWindow.document.write("<tr class=\"oddRow\" id= row"+COURSES[i].CRN+">");
 		}
 
+		//<select id="mySelect1" onchange = "dropDownChange(this.id, 'row01', 'crn01')">
 
 		// output course info, but if multi-row we only output days/times
-		if (r == 0) {
+		if (r == 0) { // print out first row for course
+		
+			newWindow.document.write("<td>");
+			newWindow.document.write("<select id='mySelect"+COURSES[i].CRN+"' onchange='dropDownChange(this.id)'>");
+			newWindow.document.write("<option value='No selection'>No selection</option>");
+			newWindow.document.write("<option value='Include'>Include</option>");
+			newWindow.document.write("<option value='Exclude'>Exclude</option>");
+			newWindow.document.write("</select>");			
+			newWindow.document.write("</td>");
 			newWindow.document.write("<td>"+COURSES[i].CRN+"</td>");
 			newWindow.document.write("<td>"+COURSES[i].Subj+"</td>");
 			newWindow.document.write("<td>"+COURSES[i].Crse+"</td>");
 			newWindow.document.write("<td>"+COURSES[i].Instructor+"</td>");
-		} else {
+		} else { // print out additional rows
+			newWindow.document.write("<td>"+"</td>");
 			newWindow.document.write("<td>"+"</td>");
 			newWindow.document.write("<td>"+"</td>");
 			newWindow.document.write("<td>"+"</td>");
@@ -90,6 +105,8 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
         	newWindow.document.write("<h3 style = 'display:inline;'>Schedule " + scheduleNum + "</h3>");       
 			newWindow.document.write("<table border = 1 style='border-collapse:collapse' width='60%' class = \"" + className + "\">");
 	*********************/
+
+		newWindow.document.write("<div>\n");
         	
         newWindow.document.write("<h3 style = 'display:inline;'>Schedule " + scheduleNum + "</h3>");       
 		newWindow.document.write("<table border = 1 style='border-collapse:collapse' width='70%'>");
