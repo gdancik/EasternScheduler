@@ -39,6 +39,7 @@ f2 = function dropDownChange(value) {
 	var x = document.getElementById(value).value;
 	//alert("select id: " + value + "\nrowid: " + rowid);
 	var rowid = value.replace("mySelect", "row");
+	//alert("rowid: " + rowid);
 	if (x === "Include") {
 		var rowClass = document.getElementById(rowid).className;
 		if (rowClass === "evenRow") {
@@ -160,6 +161,7 @@ f5 = function styleOtherCourses(rowId, selectedType) {
             // of the form "mySelect#" where # is the crn
             var crn = row.cells[1].innerHTML;
             var selectId = "mySelect" + crn;
+            //alert("selectId: " + selectId);
             // if user has included a course, exclude and disable the others
             if (selectedType === "include" && document.getElementById(row.id).className === "evenRow include") {
                 document.getElementById(row.id).className = "evenRow exclude";
@@ -194,6 +196,9 @@ f6 = function checkExclusions(value, rowId, selectedType) {
     var firstTable = allTables[0];
 	var row = document.getElementById(rowId);
     var selectedCourse = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
+    var bool = true;
+    var selectId = rowId;
+    selectId = rowId.replace("row", "mySelect");
     if (x === "Include" || x === "No selection") {
     	//No possibility of incorrect exclusions
     }
@@ -201,15 +206,29 @@ f6 = function checkExclusions(value, rowId, selectedType) {
     	for (var i = 1; i < firstTable.rows.length; i++) {
     		row = firstTable.rows[i];
     		var dropDown = row.cells[0].children[0];
-    		var course = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
-    		alert("selectedCourse: " + selectedCourse + "\ncourse: " + course);
-    		alert("row.id: " + row.id + "\nrowId: " + rowId);
+    		if (dropDown != undefined) {
+    			var course = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
+    		}
     		if (selectedCourse === course && row.id != rowId) {
-    			alert("test");
-    			if (/* dropDown of next rows are exclude */) {
-    				//change dropDown of selectedRow to 'no selection'
+    			if (dropDown != undefined) {
+    				if (dropDown.value === "Exclude") {
+    					bool = true;
+    				}
+    				else if (dropDown.value === "Include" || dropDown.value === "No selection") {
+    					bool = false;
+    				}
     			}
     		}
+    	}
+    	if (bool === true) {
+    		alert("All sections of a course may not be excluded");
+    		document.getElementById(selectId).value = "No selection";
+    		if (document.getElementById(rowId).className === "oddRow exclude") {
+    			document.getElementById(rowId).className = "oddRow";
+    		}
+    		else if (document.getElementById(rowId).className === "evenRow exclude") {
+    			document.getElementById(rowId).className = "evenRow";
+    		}	
     	}
     }
 }
