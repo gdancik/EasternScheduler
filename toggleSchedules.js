@@ -1,4 +1,5 @@
 f0 = function highlightConflicts() {
+<<<<<<< HEAD
     // TO DO: get row ids for courses that are not in any schedule
 	var tables = document.getElementsByTagName("table");
     var t1 = tables[0];
@@ -45,6 +46,17 @@ f0 = function highlightConflicts() {
 		row.className = "exclude";
 	}
 	
+=======
+
+    // TO DO: get row ids for courses that are not in any schedule
+
+    // TO DO: for each row id, replace dropdown with CONFLICT and set className to exlcude
+    // (an example for "row10206" is below
+    row = document.getElementById("row10206");
+    row.cells[0].innerHTML = "<td>CONFLICT</td>";
+    row.className = "exclude";
+
+>>>>>>> origin/master
     formatMultiRowCourses();
 }
 
@@ -303,4 +315,10 @@ f7 = function formatMultiRowCourses() {
             row.cells[n-1].className = row0.className;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+
+
+>>>>>>> origin/master
