@@ -5,7 +5,7 @@ function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
     // output headers
 	newWindow.document.write("<h1> Courses Found </h1>");
 
-	newWindow.document.write("<button onclick='resetSelection();'>Reset</button>")
+	newWindow.document.write("<button onclick='resetSelection();'>Reset class filters</button></br>")
 
 
 	newWindow.document.write("<table>");

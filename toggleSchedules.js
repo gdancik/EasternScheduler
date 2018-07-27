@@ -1,6 +1,5 @@
 f0 = function highlightConflicts() {
-    alert("in highlightConflicts()");
-    // TO DO: get row ids for courses that are not in any schedule
+    // get row ids for courses that are not in any schedule
 	var tables = document.getElementsByTagName("table");
     var t1 = tables[0];
     var rowIdArray = [];
@@ -33,20 +32,67 @@ f0 = function highlightConflicts() {
     }
 	
 	
-    // TO DO: for each row id, replace dropdown with CONFLICT and set className to exlcude
-    // (an example for "row10206" is below)
-    
-    //row = document.getElementById("row10206");
-    //row = document.getElementById("row10627");
-    //row.cells[0].innerHTML = "<td>CONFLICT</td>";
-    //row.className = "exclude";
+    // for each row id, replace dropdown with CONFLICT and set className to exlcude
 	for (var i = 0; i < rowIdArray.length; i++) {
 		var row = document.getElementById(rowIdArray[i]);
 		row.cells[0].innerHTML = "<td>CONFLICT</td>";
 		row.className = "exclude";
 	}
 
-    formatMultiRowCourses();
+    // check whether any courses have only one section available
+    //
+    // get tally of each course
+    var courseCounts = {};
+    for (var i = 1; i < t1.rows.length; i++) {
+        var r = t1.rows[i];
+        if (r.cells.length>=3) {
+            var course = r.cells[2].innerHTML + r.cells[3].innerHTML;
+            if (course == "") {
+                continue;
+            }
+            if (course in courseCounts) {
+                courseCounts[course] += 1;
+            } else {
+                courseCounts[course] = 1;
+            }
+        } 
+    }
+   
+    // which courses have one section
+    oneCourseList = []
+    for (var c in courseCounts) {
+        if (courseCounts[c] == 1) {
+            oneCourseList.push(c);
+        }
+    }
+
+    // change formatting of single section courses
+    for (var i = 1; i < t1.rows.length; i++) {
+        var r = t1.rows[i];
+        if (r.cells.length>=3) {
+            var course = r.cells[2].innerHTML + r.cells[3].innerHTML;
+            if (oneCourseList.indexOf(course) >= 0) {
+		        r.cells[0].innerHTML = "<td>REQUIRED</td>";
+		        r.className = "include";
+            }
+        }
+    }
+
+    // display message to user
+    var msg = "";
+
+    if (rowIdArray.length>0) {
+        msg = msg + "\nAt least one course is excluded from all schedules because of a time conflict with other courses."; 
+    }
+    if (oneCourseList.length>0) {
+        msg = msg + "\n\nAt least one course is required for all schedules because there is only one section";
+    }
+    
+    if (msg != "") {
+        alert("Note:\n" + msg);
+    }
+
+        formatMultiRowCourses();
 }
 
 f = function resetSelection() {
@@ -59,7 +105,7 @@ f = function resetSelection() {
         //var className = document.getElementById(row.id).className;
         var className = row.className;
         
-        if (className === "exclude") {
+        if (className === "exclude" || className === "include") {
         	//do nothing
         }
         else if (className.indexOf("evenRow") >= 0) {

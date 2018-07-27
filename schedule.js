@@ -93,6 +93,7 @@ console.log("NUMBER OF COURSES FOUND: " + COURSE_NUM);
 var newWindow = window.open("", null);
 newWindow.document.write("<html>");
 newWindow.document.write("<head>");
+newWindow.document.write("<title>Available Schedules</title>");
 newWindow.document.write("<style>");
 
 newWindow.document.write(".evenRow {\n");

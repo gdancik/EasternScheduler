@@ -1,13 +1,13 @@
 {
 "manifest_version": 2,
     "name": "Eastern Scheduler",
-    "description": "Extension for highlighting words",
+    "description": "Extension for course scheduling at Eastern",
     "version": "1.0",
      "permissions": [
         "tabs", "http://*/*", "https://*/*", "file://*/*"
     ],
     "browser_action": {
-      "default_title": "Enter a search term",
+      "default_title": "Run from e-web class search to see possible schedules",
       "default_popup": "popup.html"
   }
 }
