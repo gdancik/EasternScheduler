@@ -148,9 +148,7 @@ newWindow.document.write("<h1> Available Schedules </h1>");
 /*
 var f = "earlyCount = 1;\n" + 
   "function myClick() {\n" +
-
 	"//alert(\"in myClick\");\n" +
-
     "tables = document.getElementsByClassName('earlyDiv')\n" +
     "console.log(\"num found = \" + tables.length);\n" + 
     "var type = 'none';\n" +
@@ -246,5 +244,9 @@ for (i = 0; i < combs.length; i++) {
     } 
 }
 
+<<<<<<< HEAD
+newWindow.document.write("<script type ='text/javascript'>\nhighlightConflicts();\n</script>");
+=======
 newWindow.document.write("<script type ='text/javascript'>\nhighlightConflicts();\n</script>");
 
+>>>>>>> origin/master
