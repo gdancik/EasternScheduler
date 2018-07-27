@@ -244,9 +244,4 @@ for (i = 0; i < combs.length; i++) {
     } 
 }
 
-<<<<<<< HEAD
 newWindow.document.write("<script type ='text/javascript'>\nhighlightConflicts();\n</script>");
-=======
-newWindow.document.write("<script type ='text/javascript'>\nhighlightConflicts();\n</script>");
-
->>>>>>> origin/master

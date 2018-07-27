@@ -1,10 +1,11 @@
 f0 = function highlightConflicts() {
+    alert("in highlightConflicts()");
     // TO DO: get row ids for courses that are not in any schedule
 	var tables = document.getElementsByTagName("table");
     var t1 = tables[0];
-    var bool = true;
     var rowIdArray = [];
     for (var i = 1; i < t1.rows.length; i++) {				//check first table
+        var bool = true;
     	var row = t1.rows[i];
     	var dropDown = row.cells[0].children[0];
     	if (dropDown != undefined) {
@@ -12,12 +13,13 @@ f0 = function highlightConflicts() {
     	}
     	
     	for (var j = 1; j < tables.length; j++) {			//check all schedules
-    		for (var k = 1; k < tables.length; k++) {		//check row of each schedule
     			var table = tables[j];
+    		for (var k = 1; k < table.rows.length; k++) {		//check row of each schedule
     			var scheduleRow = table.rows[k];
     			if (scheduleRow != undefined) {
     				var scheduleCrn = scheduleRow.cells[0].innerHTML;  
     			}
+                //alert("crn = " + crn + " and scheduleCrn = " + scheduleCrn);
     			if (crn === scheduleCrn) {
     				bool = false;
     			}  		
@@ -26,7 +28,7 @@ f0 = function highlightConflicts() {
     	if (bool === true) {	//crn not found in any schedules
     		var rowId = "row" + crn;
     		rowIdArray.push(rowId);
-    		alert("rowIdArray: " + rowIdArray);
+    		//alert("rowIdArray: " + rowIdArray);
     	}
     }
 	
@@ -38,8 +40,7 @@ f0 = function highlightConflicts() {
     //row = document.getElementById("row10627");
     //row.cells[0].innerHTML = "<td>CONFLICT</td>";
     //row.className = "exclude";
-		
-	for (var i = 0; i < rowIdArray; i++) {
+	for (var i = 0; i < rowIdArray.length; i++) {
 		var row = document.getElementById(rowIdArray[i]);
 		row.cells[0].innerHTML = "<td>CONFLICT</td>";
 		row.className = "exclude";
@@ -304,3 +305,4 @@ f7 = function formatMultiRowCourses() {
         }
     }
 }
+
