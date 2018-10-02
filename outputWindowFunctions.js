@@ -5,8 +5,10 @@ function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
     // output headers
 	newWindow.document.write("<h1> Courses Found </h1>");
 
-	newWindow.document.write("<button onclick='resetSelection();'>Reset class filters</button></br>")
-
+	newWindow.document.write("<button onclick='resetSelection();'" +
+        "style = 'padding: 5px; width: 200px;" +
+        "background-color: indianred;color: white;border-radius:8px'>" +
+        "Reset class filters</button></br></br>")
 
 	newWindow.document.write("<table>");
 	newWindow.document.write("<tr>");
@@ -86,26 +88,6 @@ function writeCourse(newWindow, c, i) {
 // outputs a single schedule to the window
 function printSchedule(newWindow, scheduleNum, schedule1) {
 
-
-        // old code for 'early' tables
-        /*
-		var early = tooEarly(schedule1);
-		
-		if (early) {
-			newWindow.document.write("<div class = 'earlyDiv'>");
-		} else {		
-			newWindow.document.write("<div class = 'noearlyDiv'>");
-		}
-	
-        var className = "noearlyTable";
-        if (early) {
-            className = "earlyTable";
-        }
-        
-        	newWindow.document.write("<h3 style = 'display:inline;'>Schedule " + scheduleNum + "</h3>");       
-			newWindow.document.write("<table border = 1 style='border-collapse:collapse' width='60%' class = \"" + className + "\">");
-	*********************/
-
 		newWindow.document.write("<div>\n");
         	
         newWindow.document.write("<h3 style = 'display:inline;'>Schedule " + scheduleNum + "</h3>");       
@@ -131,9 +113,14 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
             newWindow.document.write("<td>" + c.Subj+"</td>");
             newWindow.document.write("<td>" + c.Crse+"</td>");
 			newWindow.document.write("<td>" + c.Instructor+"</td>");
-			
-            newWindow.document.write("<td>" + c.strDays+"</td>");
-            newWindow.document.write("<td>" + c.strTimes+"</td>");
+	
+            var days = c.strDays.toString();
+            days = days.replace(",","<br>");
+            newWindow.document.write("<td>" + days +"</td>");
+
+            var times = c.strTimes.toString();
+            times = times.replace(",","<br>");
+            newWindow.document.write("<td>" + times+"</td>");
             newWindow.document.write("</tr>");
                    
        	}
@@ -141,5 +128,4 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
     	newWindow.document.write("</table>");        
     	newWindow.document.write("</div>");        
         newWindow.document.write("<br>");     
-       
 }

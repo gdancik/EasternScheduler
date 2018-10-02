@@ -2,7 +2,8 @@
 // a list of courses, e.g., CSC 210, MAT 243, etc. The variable 'qry' is  
 // set by popup.js before calling this script
 
-//alert("in schedule.js");
+
+console.log = function(x){}
 
 if (typeof(qry) == "undefined") {
     alert("Error: qry is not set");
@@ -93,7 +94,7 @@ console.log("NUMBER OF COURSES FOUND: " + COURSE_NUM);
 var newWindow = window.open("", null);
 newWindow.document.write("<html>");
 newWindow.document.write("<head>");
-newWindow.document.write("<title>Available Schedules</title>");
+newWindow.document.write("<title>Possible Schedules</title>");
 newWindow.document.write("<style>");
 
 newWindow.document.write(".evenRow {\n");
@@ -115,16 +116,6 @@ newWindow.document.write("  text-align:center;\n");
 newWindow.document.write("}\n");
 
 
-// old styles for 'early' tables
-//newWindow.document.write(".earlyTable {\n");
-//newWindow.document.write("  background-color:lightcoral;\n");
-//newWindow.document.write("}\n");
-
-//newWindow.document.write(".noearlyTable {\n");
-//newWindow.document.write("  background-color:lightyellow;\n");
-//newWindow.document.write("}\n");
-
-
 newWindow.document.write("</style>");
 newWindow.document.write("</head>");
 
@@ -138,40 +129,7 @@ printCoursesFound(newWindow, COURSES, COURSE_NUM);
 // output available schedules
 newWindow.document.write("<h1> Available Schedules </h1>");
 
-//newWindow.document.write('<script src="schedule.js"></script>')
 
-
-//newWindow.document.write("<button onclick='myClick()' id='b1'> Click me to hide schedules with courses that start before 9:00 am</button>")
-
-
-
-// old code -- used to handle toggle between show/hide early classes
-/*
-var f = "earlyCount = 1;\n" + 
-  "function myClick() {\n" +
-	"//alert(\"in myClick\");\n" +
-    "tables = document.getElementsByClassName('earlyDiv')\n" +
-    "console.log(\"num found = \" + tables.length);\n" + 
-    "var type = 'none';\n" +
-    "if (earlyCount == 2){\n" +
-    "     type = 'block';\n" +
-    "}\n" +
- "   for (var i = 0; i < tables.length; i++) {" +
-     "       tables[i].style.display = type;" +
-         "   }" +
-     "earlyCount = earlyCount + 1;\n" +
-       "document.getElementById('b1').innerText = 'Click me to show all possible schedules';\n" +
-     "if (earlyCount >2) {\n" +
-     "  earlyCount = 1;\n" +
-       "document.getElementById('b1').innerText = 'Click me to hide schedules with courses before 9:00am';\n" +
-     "}" +
-"};";
-*/
-
-
-//alert("attaching function:\n" + f);
-
-   
 
    // NOTE: ALL javascript functions running on newWindow must be appended here,
    // in the example, 'f' is the name of a function in toggleSchedules.js
@@ -193,7 +151,6 @@ var f = "earlyCount = 1;\n" +
     attachFunction(f7, newWindow);
 
 
-//newWindow.document.write("<br>")
 
 // output course information to console
 console.log("");
