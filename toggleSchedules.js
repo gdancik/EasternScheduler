@@ -135,6 +135,10 @@ f = function resetSelection() {
         }
 
         formatMultiRowCourses()
+
+        var a = document.getElementById("available");
+        a.innerHTML = "Available Schedules (" + (tables.length-1) + " available)";
+
 }
 
 f2 = function dropDownChange(value) {
@@ -218,13 +222,22 @@ f3 = function toggleAllSchedules(value) {
 	    	}
 	    }        
     }
+    var num = 0;
     for (var x = 1; x < allTables.length; x++) {
-        toggleSchedule(allTables[x], x, crnArray);
+        if (toggleSchedule(allTables[x], x, crnArray)) {
+            num++;
+        }
     }
+//    alert("Number of schedules: " + num);
+    var a = document.getElementById("available");
+    a.innerHTML = "Available Schedules (" + num + " available)";
+    
+
 }
 
 f4 = function toggleSchedule(table, table_ind, crnArray) {
 	//alert("in toggleSchedule");
+    
 	divs = document.getElementsByTagName('div');
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
@@ -233,11 +246,12 @@ f4 = function toggleSchedule(table, table_ind, crnArray) {
         for (var j = 0; j < crnArray.length; j++) {
             if (crn === crnArray[j]) {
                 divs[table_ind].style.display = 'none';
-                return;
+                return false;
             }
         }
         divs[table_ind].style.display = 'block';
-    }       
+    }      
+    return true;
 }
 
 f5 = function styleOtherCourses(rowId, selectedType) {

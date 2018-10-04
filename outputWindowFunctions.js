@@ -126,6 +126,6 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
        	}
     
     	newWindow.document.write("</table>");        
-    	newWindow.document.write("</div>");        
         newWindow.document.write("<br>");     
+    	newWindow.document.write("</div>");        
 }

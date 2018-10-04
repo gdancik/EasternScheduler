@@ -127,7 +127,7 @@ printCoursesFound(newWindow, COURSES, COURSE_NUM);
 
 
 // output available schedules
-newWindow.document.write("<h1> Available Schedules </h1>");
+newWindow.document.write("<h1 id = 'available'> Available Schedules </h1>");
 
 
 
@@ -203,3 +203,7 @@ for (i = 0; i < combs.length; i++) {
 }
 
 newWindow.document.write("<script type ='text/javascript'>\nhighlightConflicts();\n</script>");
+
+
+newWindow.document.getElementById("available").innerHTML = 
+    "Available Schedules (" + scheduleNum + " available)";
