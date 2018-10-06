@@ -85,7 +85,7 @@ f0 = function highlightConflicts() {
         msg = msg + "\nAt least one course is excluded from all schedules because of a time conflict with other courses."; 
     }
     if (oneCourseList.length>0) {
-        msg = msg + "\n\nAt least one course is required for all schedules because there is only one section";
+        msg = msg + "\n\nAt least one course has only one section. This section is required and will appear in all schedules";
     }
     
     if (msg != "") {

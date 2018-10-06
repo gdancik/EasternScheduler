@@ -1,13 +1,13 @@
 {
 "manifest_version": 2,
-    "name": "Eastern Scheduler",
-    "description": "Extension for course scheduling at Eastern",
+    "name": "Eastern Connecticut State University Scheduler",
+    "description": "Determines possible schedules for a list of courses",
     "version": "1.0",
      "permissions": [
         "tabs", "http://*/*", "https://*/*", "file://*/*"
     ],
     "browser_action": {
-      "default_title": "Run from e-web class search to see possible schedules",
+      "default_title": "Click and follow steps to see possible schedules",
       "default_popup": "popup.html"
   }
 }

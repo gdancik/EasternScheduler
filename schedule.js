@@ -9,6 +9,7 @@ if (typeof(qry) == "undefined") {
     alert("Error: qry is not set");
 } 
 
+
 // output the query to the console
 console.log("scheduler is running with qry = " + qry + "...");
 

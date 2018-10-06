@@ -28,9 +28,32 @@ function findSchedules(input) {
 
 }
 
+function getCurrentTabUrl(callback) {  
+  var queryInfo = {
+    active: true, 
+    currentWindow: true
+  };
+
+  chrome.tabs.query(queryInfo, function(tabs) {
+    var tab = tabs[0]; 
+    var url = tab.url;
+    callback(url);
+  });
+}
+
+
 // Add listener for button click, which calls 'findSchedules'
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("btnFindSchedules").addEventListener("click", 
-        function() {findSchedules(document.getElementById('searchString'));})
+        function() {
+        
+            getCurrentTabUrl(function(url) {
+                if (url.indexOf("easternct\.edu") > 0) {
+                    findSchedules(document.getElementById('searchString'));
+                } else {
+                    alert("To use this extension, first perform a class search at Eastern's Schedule of Classes page (see Step 1)");
+                }
+            })
+     });
 });
 
