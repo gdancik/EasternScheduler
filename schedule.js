@@ -53,6 +53,11 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
             var crn = rows[i].cells[2].innerText;
             var subj = rows[i].cells[3].innerText;
 	    	var crse = rows[i].cells[4].innerText;
+            var sec = rows[i].cells[5].innerText;
+            var title = rows[i].cells[8].innerText;
+            if (title == "Laboratory") {
+                crse += " (lab)";
+            }
     		var dys = rows[i].cells[10].innerText;
     		var tme = rows[i].cells[11].innerText;
 			var Instructor = rows[i].cells[21].innerText;
@@ -64,7 +69,7 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 			}
 			
 			console.log("Course found " + subj + "-" + crse + " " + dys + ", " + tme + ", " + Instructor);
-			var c = new Course(crn, subj, crse, dys, tme, Instructor) 
+			var c = new Course(crn, subj, crse, sec, title, dys, tme, Instructor) 
 			
 			// check next row since some courses take 2 rows
 			if(i<rows.length-1) {
@@ -157,6 +162,35 @@ newWindow.document.write("<h1 id = 'available'> Available Schedules </h1>");
 console.log("");
 console.log("");
 
+
+// courseArray may contain some courses that have separate labs
+// these need to put into their own course
+function getLabs(c) {
+    var c1 = [];
+    var c2 = [];
+    for (var i = 0; i < c.length; i++) {
+        if (c[i].Title == "Laboratory") {
+            c2.push(c[i]);
+        } else {
+            c1.push(c[i]);
+        }
+    }
+    return [c1,c2];
+}
+
+
+var c2 = [];
+for (var i = 0; i < courseArray.length; i++) {
+        var x = getLabs(courseArray[i]);
+        if (x[0].length >0) {
+            c2.push(x[0]);
+        }
+        if (x[1].length >0) {
+            c2.push(x[1]);
+        }
+}
+
+courseArray = c2;
 
 // create second course array (courseArray2) for valid courses only
 var courseArray2 = [];  

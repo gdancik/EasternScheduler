@@ -9,10 +9,12 @@
  *        to current Course object; modify print() accordingly
  ************************************************************/
 Course = class {
-    constructor(CRN, Subj, Crse, strDays, strTimes) {
+    constructor(CRN, Subj, Crse, Sec, Title, strDays, strTimes) {
         this.CRN = CRN;
         this.Subj = Subj;
 		this.Crse = Crse;
+        this.Sec = Sec;
+        this.Title = Title;
         this.strDays = [strDays];
         this.strTimes = [strTimes];
 		this.Instructor = Instructor; 

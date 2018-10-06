@@ -16,6 +16,8 @@ function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
 	newWindow.document.write("<th>CRN</th>");
 	newWindow.document.write("<th>Subj</th>");
 	newWindow.document.write("<th>Crse</th>");
+	newWindow.document.write("<th>Sec</th>");
+	newWindow.document.write("<th>Title</th>");
 	newWindow.document.write("<th>Instructor</th>");
 	newWindow.document.write("<th>Days</th>");
 	newWindow.document.write("<th>Time</th>");
@@ -27,7 +29,7 @@ function printCoursesFound(newWindow, COURSES, COURSE_NUM) {
 	
     	// add a 'blank' line between courses
     	if (i> 0 && (COURSES[i].Subj != COURSES[i-1].Subj || COURSES[i].Crse != COURSES[i-1].Crse)) {
-        	newWindow.document.write("<tr style = 'background-color: black'><td colspan=7 style='padding:2'> </td></tr>");
+        	newWindow.document.write("<tr style = 'background-color: black'><td colspan=9 style='padding:2'> </td></tr>");
     	}
 
 		writeCourse(newWindow, COURSES[i], i)
@@ -67,8 +69,12 @@ function writeCourse(newWindow, c, i) {
 			newWindow.document.write("<td>"+COURSES[i].CRN+"</td>");
 			newWindow.document.write("<td>"+COURSES[i].Subj+"</td>");
 			newWindow.document.write("<td>"+COURSES[i].Crse+"</td>");
+			newWindow.document.write("<td>"+COURSES[i].Sec+"</td>");
+			newWindow.document.write("<td>"+COURSES[i].Title+"</td>");
 			newWindow.document.write("<td>"+COURSES[i].Instructor+"</td>");
 		} else { // print out additional rows
+			newWindow.document.write("<td>"+"</td>");
+			newWindow.document.write("<td>"+"</td>");
 			newWindow.document.write("<td>"+"</td>");
 			newWindow.document.write("<td>"+"</td>");
 			newWindow.document.write("<td>"+"</td>");
@@ -91,16 +97,18 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
 		newWindow.document.write("<div>\n");
         	
         newWindow.document.write("<h3 style = 'display:inline;'>Schedule " + scheduleNum + "</h3>");       
-		newWindow.document.write("<table border = 1 style='border-collapse:collapse' width='70%'>");
+		newWindow.document.write("<table border = 1 style='border-collapse:collapse' width='80%'>");
 
         //  output heading, CRN, Subj, Crse
         newWindow.document.write("<tr>")
         newWindow.document.write("<th width = '5%'>CRN</th>")
-        newWindow.document.write("<th width = '10%'>Subject</th>")
+        newWindow.document.write("<th width = '5%'>Subject</th>")
         newWindow.document.write("<th width = '10%'>Crse</th>")
+        newWindow.document.write("<th width = '10%'>Sec</th>")
+        newWindow.document.write("<th width = '30%'>Title</th>")
 		newWindow.document.write("<th width = '15%'>Instructor</th>")
 		
-        newWindow.document.write("<th width = '10%'>Day</th>");
+        newWindow.document.write("<th width = '5%'>Day</th>");
         newWindow.document.write("<th width = '20%'>Time</th>");
         newWindow.document.write("</tr>")
             
@@ -112,6 +120,8 @@ function printSchedule(newWindow, scheduleNum, schedule1) {
             newWindow.document.write("<td>" + c.CRN +"</td>");
             newWindow.document.write("<td>" + c.Subj+"</td>");
             newWindow.document.write("<td>" + c.Crse+"</td>");
+            newWindow.document.write("<td>" + c.Sec+"</td>");
+            newWindow.document.write("<td>" + c.Title+"</td>");
 			newWindow.document.write("<td>" + c.Instructor+"</td>");
 	
             var days = c.strDays.toString();
