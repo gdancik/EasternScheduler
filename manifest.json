@@ -1,6 +1,6 @@
 {
 "manifest_version": 2,
-    "name": "Eastern Connecticut State University Scheduler",
+    "name": "ECSU Course Schedule Assistant",
     "description": "Determines possible schedules for a list of courses",
     "version": "1.0",
      "permissions": [
