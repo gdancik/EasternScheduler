@@ -179,18 +179,6 @@ function getLabs(c) {
 }
 
 
-var c2 = [];
-for (var i = 0; i < courseArray.length; i++) {
-        var x = getLabs(courseArray[i]);
-        if (x[0].length >0) {
-            c2.push(x[0]);
-        }
-        if (x[1].length >0) {
-            c2.push(x[1]);
-        }
-}
-
-courseArray = c2;
 
 // create second course array (courseArray2) for valid courses only
 var courseArray2 = [];  
@@ -202,6 +190,18 @@ for (i = 0; i < courseArray.length; i++) {
     } 
 }
 
+var c2 = [];
+for (var i = 0; i < courseArray2.length; i++) {
+        var x = getLabs(courseArray2[i]);
+        if (x[0].length >0) {
+            c2.push(x[0]);
+        }
+        if (x[1].length >0) {
+            c2.push(x[1]);
+        }
+}
+
+courseArray2 = c2;
 // creates lengths array with the number of each course found
 lengths = [];
 for (i = 0; i < courseArray2.length; i++) {
