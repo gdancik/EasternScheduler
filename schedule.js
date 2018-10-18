@@ -46,15 +46,25 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
 
         // get subject and course number (e.g., from CSC 210)    
         var thisCourse = courses[j].split(" "); 
-	
+
+    console.log("searching for: " + thisCourse[0] + " " + thisCourse[1]);
+    console.log("looking at: " + rows[i].cells[3].innerHTML + " " + rows[i].cells[4].innerHTML);
+        console.log();
         // check for match between subject and crse number     
-		if (rows[i].cells[3].innerText == thisCourse[0] && rows[i].cells[4].innerText == thisCourse[1]) {
+		if (rows[i].cells[3].innerHTML == thisCourse[0] && rows[i].cells[4].innerHTML == thisCourse[1]) {
 
             var crn = rows[i].cells[2].innerText;
             var subj = rows[i].cells[3].innerText;
 	    	var crse = rows[i].cells[4].innerText;
             var sec = rows[i].cells[5].innerText;
             var title = rows[i].cells[8].innerText;
+
+            crn = crn.trim();
+            subj = subj.trim();
+            crse = crse.trim();
+            sec = sec.trim();
+            title = title.trim();
+
             if (title == "Laboratory") {
                 crse += " (lab)";
             }
@@ -62,6 +72,9 @@ for (tableIndex = 3; tableIndex < html.length-1; tableIndex++) {
     		var tme = rows[i].cells[11].innerText;
 			var Instructor = rows[i].cells[21].innerText;
 			
+            dys = dys.trim();
+            tme = tme.trim();
+            Instructor = Instructor.trim();
 
 			if (tme.trim() == "TBA") {
 				alert("Days and/or times for the following course is TBA and will not be included in your schedule: " + subj + " " + crse);

@@ -71,9 +71,11 @@ f0 = function highlightConflicts() {
         var r = t1.rows[i];
         if (r.cells.length>=3) {
             var course = r.cells[2].innerHTML + r.cells[3].innerHTML;
-            if (oneCourseList.indexOf(course) >= 0) {
-		        r.cells[0].innerHTML = "<td>REQUIRED</td>";
-		        r.className = "include";
+            if (oneCourseList.indexOf(course) >= 0 ) {
+                if (r.cells[0].innerHTML.indexOf("CONFLICT") < 0) {
+		            r.cells[0].innerHTML = "<td>REQUIRED</td>";
+		            r.className = "include";
+                }
             }
         }
     }
