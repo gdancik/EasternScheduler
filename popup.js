@@ -9,7 +9,7 @@ function findSchedules(input) {
         return;
     }
 
-    coursePattern = RegExp("^([a-zA-Z]{3} [0-9]{3}, )*[a-zA-Z]{3} [0-9]{3}$");
+    coursePattern = RegExp("^([a-zA-Z]{3} [0-9]{3}P?, )*[a-zA-Z]{3} [0-9]{3}P?$");
 
     if (x.match(coursePattern) == null) {
         alert("Please enter your courses in the correct format.\n\n" +
